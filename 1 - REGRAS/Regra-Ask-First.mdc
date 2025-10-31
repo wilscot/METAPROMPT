@@ -1,0 +1,139 @@
+---
+alwaysApply: true
+description: Ask before exploring code or making assumptions about business logic
+---
+
+# Ask First - Don't Assume
+
+## Core Principle
+
+When uncertain about business logic, requirements, or user intent: **ASK, don't assume.**
+
+## When to Ask
+
+### ✅ ALWAYS ask about:
+
+**Business Logic:**
+- "Should field X be required or optional?"
+- "What happens if user does Y?"
+- "Is there a maximum/minimum value for Z?"
+- "How should error case W be handled?"
+
+**Requirements Clarification:**
+- "Did you want feature A or feature B?"
+- "Should this work like X or Y?"
+- "Is this for [use case 1] or [use case 2]?"
+
+**Data/State:**
+- "What should default value be?"
+- "When should this data refresh?"
+- "How long should this be cached?"
+
+**Code Exploration:**
+If you need to read existing code to understand context:
+- "Posso ler arquivo X para entender Y?"
+- "Preciso ver a implementação de Z para continuar. Posso?"
+
+### ❌ DON'T ask about:
+
+**Technical Implementation (you decide):**
+- Variable names
+- Code organization within a file
+- Which React hook to use
+- CSS class naming
+
+**Already Specified:**
+- Things explicitly written in the prompt
+- Requirements clearly in escopo.md
+- Rules already defined in .cursor/rules/
+
+## Ask Format
+
+### Good (specific question):
+```
+❓ Dúvida sobre validação:
+O campo "email" deve aceitar '+' no endereço (ex: user+tag@domain.com)?
+
+A) Sim, aceitar '+'
+B) Não, bloquear '+'
+C) Outro comportamento?
+```
+
+### Bad (vague question):
+```
+"Como você quer que o email funcione?"
+```
+
+### Good (code exploration):
+```
+❓ Para implementar feature X corretamente, preciso entender 
+como Y funciona atualmente.
+
+Posso ler @src/lib/auth.ts para ver a implementação?
+```
+
+### Bad (exploring without permission):
+```
+[just reads multiple files without asking]
+```
+
+## Integration with Other Rules
+
+- **00-universal-workflow.mdc**: Ask during PLAN phase
+- **10-tool-selection.mdc**: Ask about WHICH tool, this asks about HOW to use it
+- **00-universal-file-size.mdc**: Ask when file grows, this asks about requirements
+
+## Examples
+
+### Example 1: Field Validation ✅
+```
+User: "Add email field to registration form"
+
+AI: "Vou adicionar campo de email com validação.
+
+❓ Dúvida sobre validação:
+- Email deve ser único (verificar se já existe)?
+- Email deve ser confirmado (duplo campo)?
+- Regex específico ou padrão HTML5?
+
+Por favor, especifique."
+```
+
+### Example 2: Error Handling ✅
+```
+User: "Add delete product button"
+
+AI: "Vou implementar botão de deletar.
+
+❓ Dúvida sobre comportamento:
+Ao clicar em deletar:
+A) Mostrar modal de confirmação "Tem certeza?"
+B) Deletar imediatamente
+C) Mover para "lixeira" (soft delete)
+
+Qual prefere?"
+```
+
+### Example 3: Code Exploration ✅
+```
+User: "Integrate payment system with existing orders"
+
+AI: "Para integrar corretamente, preciso entender como pedidos 
+são criados atualmente.
+
+❓ Posso ler @src/lib/orders.ts para ver o fluxo atual?"
+```
+
+### Example 4: DON'T Ask (technical decision) ❌
+```
+User: "Create a modal component"
+
+AI: "❓ Devo usar portal do React ou posição absolute?"
+↑ BAD - this is technical, just decide
+```
+
+## Remember
+
+**When in doubt: ASK.**
+
+Better to clarify once than implement wrong and rewrite.

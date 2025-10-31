@@ -1,0 +1,154 @@
+---
+alwaysApply: true
+description: Keep files under 300 lines by asking when approaching limit
+---
+
+# File Size Management
+
+## Core Principle
+
+Files should stay **under 300 lines**. When approaching this limit, pause and ask the user how to proceed.
+
+## The Rule
+
+### 📏 Size Tracking
+
+Monitor file size while editing:
+- **< 250 lines**: Continue normally ✅
+- **250-290 lines**: Awareness mode ⚠️
+- **290 lines**: PAUSE and ask user 🛑
+
+### 🛑 When Hitting 290 Lines
+
+Stop editing and present options:
+
+```
+⚠️ Arquivo chegando no limite:
+
+Arquivo: @src/components/Dashboard.tsx
+Linhas atuais: 292
+Limite: 300
+
+❓ Como prefere prosseguir?
+
+A) Continuar neste arquivo (aceitar >300 linhas desta vez)
+B) Refatorar agora (quebrar em componentes menores)
+C) Sugerir estrutura de refatoração para eu decidir
+
+Por favor, escolha A, B ou C.
+```
+
+### Option A: Continue
+
+User accepts going over 300 lines this time.
+- Complete the current task
+- Add TODO comment at top: `// TODO: Refactor - file exceeds 300 lines`
+
+### Option B: Refactor Now
+
+User wants to refactor immediately.
+- Stop current task
+- Propose refactoring plan
+- Wait for approval
+- Execute refactoring
+- Then continue original task
+
+### Option C: Suggest Structure
+
+Present refactoring options without executing:
+
+```
+📊 Opções de Refatoração:
+
+Opção 1: Extrair Seções
+- DashboardHeader.tsx (50 linhas)
+- DashboardStats.tsx (80 linhas)  
+- DashboardCharts.tsx (120 linhas)
+- Dashboard.tsx (60 linhas - orquestra)
+
+Opção 2: Extrair por Feature
+- UserDashboard.tsx (150 linhas)
+- AdminDashboard.tsx (150 linhas)
+- Dashboard.tsx (20 linhas - router)
+
+Qual abordagem prefere? Ou tem outra ideia?
+```
+
+## When NOT to Split
+
+Some files naturally grow large and that's OK:
+- Configuration files (tailwind.config.ts)
+- Type definition files with many interfaces
+- Test files with many test cases
+
+For these, mention: "Este arquivo é naturalmente grande (config/types/tests). Continuo?"
+
+## Examples
+
+### Example 1: Hitting Limit During Feature ✅
+
+```
+User: "Add charts section to Dashboard"
+
+AI: [starts adding code]
+AI: [file reaches 290 lines]
+
+AI: "⚠️ Arquivo chegando no limite:
+Dashboard.tsx está em 292 linhas (limite 300).
+
+❓ Como prefere:
+A) Continuar (aceitar >300 linhas)
+B) Refatorar agora  
+C) Ver sugestões de refatoração
+
+Escolha A, B ou C."
+```
+
+### Example 2: Config File (Exception) ✅
+
+```
+User: "Add 20 more Tailwind color definitions"
+
+AI: [file reaches 290 lines]
+
+AI: "⚠️ tailwind.config.ts chegando em 295 linhas.
+
+Este é arquivo de config (naturalmente grande). 
+Continuo adicionando as cores? 
+
+Reply 'sim' para continuar ou 'refatorar' para outro approach."
+```
+
+### Example 3: User Chooses Refactor ✅
+
+```
+User: "B - refatorar"
+
+AI: "📊 Plano de Refatoração:
+
+CRIAR:
+- src/components/UserProfile/Header.tsx (50 linhas)
+- src/components/UserProfile/Stats.tsx (80 linhas)
+- src/components/UserProfile/Activity.tsx (100 linhas)
+
+MANTER:
+- src/components/UserProfile.tsx (40 linhas - orquestra)
+
+Prossigo com este plano?"
+
+User: "Sim"
+
+AI: [executes refactoring]
+AI: "✅ Refatoração completa. Retomando task original..."
+```
+
+## Integration with Other Rules
+
+- **00-universal-workflow.mdc**: Pause at EXECUTE phase to ask
+- **00-universal-ask-first.mdc**: This asks about SIZE, that asks about LOGIC
+
+## Remember
+
+**290 lines = pause and ask.** 
+
+User decides: continue or refactor. Don't decide for them.

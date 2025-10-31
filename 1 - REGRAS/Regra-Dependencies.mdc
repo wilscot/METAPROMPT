@@ -1,0 +1,208 @@
+---
+alwaysApply: true
+description: Present options for large dependencies before installing
+---
+
+# Dependency Management
+
+## Core Principle
+
+Before adding **large dependencies** (>500kb), present alternatives so the user can make an informed choice.
+
+## The Rule
+
+### 📦 Dependency Size Thresholds
+
+- **< 100kb**: Add directly, mention in commit ✅
+- **100-500kb**: Add, briefly note the size ⚠️
+- **> 500kb**: PAUSE and present alternatives 🛑
+
+### 🛑 When Adding Large Dependency (>500kb)
+
+Stop and present analysis:
+
+```
+📦 Analisando dependência solicitada:
+
+Você pediu: [feature/functionality]
+Sugeri: [library name]
+
+📊 Análise da Lib:
+
+Biblioteca: moment.js
+Tamanho: 2.3 MB (minified) ⚠️
+Manutenção: Ativa
+Download semanal: 15M
+
+✅ Prós:
+- API completa para datas
+- Muito bem documentada
+- Amplamente usada
+
+⚠️ Contras:
+- Tamanho grande (2.3MB)
+- Mutável (pode causar bugs)
+- Em "maintenance mode"
+
+---
+
+📦 Alternativas:
+
+Opção A: date-fns
+Tamanho: 78 KB (tree-shakeable)
+Prós: Modular, imutável, moderno
+Contras: Sintaxe diferente de moment
+
+Opção B: day.js  
+Tamanho: 7 KB
+Prós: API compatível com moment, tiny
+Contras: Menos features completas
+
+Opção C: Nativa (Intl.DateTimeFormat)
+Tamanho: 0 KB (built-in)
+Prós: Zero dependencies
+Contras: API mais verbosa
+
+---
+
+❓ Qual opção prefere? (moment / date-fns / day.js / nativa)
+```
+
+## When to Present Alternatives
+
+### ✅ Present alternatives for:
+
+- Date/time libraries (>500kb)
+- Lodash (suggest native alternatives)
+- Large UI libraries (suggest smaller alternatives)
+- Formatting libraries (suggest built-in Intl)
+- Validation libraries (suggest smaller options)
+
+### ❌ Don't present for:
+
+- Framework core (React, Next.js) - essential
+- Tools explicitly in escopo.md pre-approved list
+- Dependencies <100kb
+- Dev dependencies (not in production bundle)
+
+## Analysis Template
+
+```
+📦 [Library Name]
+Tamanho: [size] (minified/gzipped)
+Última atualização: [date]
+Manutenção: [Active/Maintenance/Deprecated]
+
+✅ Prós:
+- [benefit 1]
+- [benefit 2]
+
+⚠️ Contras:
+- [drawback 1]
+- [drawback 2]
+
+📦 Melhor para: [use case]
+```
+
+## Common Scenarios
+
+### Scenario 1: Date Handling
+
+Instead of auto-adding moment.js (2.3MB):
+→ Present: date-fns (78KB) vs day.js (7KB) vs native
+
+### Scenario 2: Utility Functions
+
+Instead of auto-adding full lodash (70KB):
+→ Present: lodash-es (tree-shakeable) vs native methods
+
+### Scenario 3: Form Validation
+
+Instead of auto-adding yup (40KB) + ajv (120KB):
+→ Present: zod (50KB total) vs joi vs native validation
+
+### Scenario 4: HTTP Client
+
+Instead of auto-adding axios (13KB):
+→ Present: native fetch (0KB) vs ky (8KB) vs axios
+→ Note: For simple cases, fetch is enough
+
+### Scenario 5: State Management
+
+Instead of auto-adding Redux Toolkit (45KB):
+→ Present: Zustand (3KB) vs Jotai (5KB) vs Context API (0KB)
+
+## Integration with Other Rules
+
+- **10-tool-selection.mdc**: This handles dependencies, that handles tools/services
+- **00-universal-workflow.mdc**: Present alternatives in PLAN phase
+- **00-universal-ask-first.mdc**: This asks about WHICH lib, that asks about HOW to use
+
+## Examples
+
+### Example 1: Large Lib Detected ✅
+
+```
+User: "Add rich text editor"
+
+AI: "Para rich text editor, considerando:
+
+📦 Opção A: TinyMCE
+Tamanho: 500 KB ⚠️
+✅ Prós: Features completas, WYSIWYG robusto
+⚠️ Contras: Tamanho, precisa CDN ou config complexa
+
+📦 Opção B: Slate.js
+Tamanho: 180 KB
+✅ Prós: Moderno, extensível, React-first
+⚠️ Contras: API mais complexa
+
+📦 Opção C: Lexical (Meta)
+Tamanho: 90 KB
+✅ Prós: Performático, moderno
+⚠️ Contras: Docs ainda em evolução
+
+❓ Qual editor prefere? (A/B/C)"
+```
+
+### Example 2: Small Lib, No Need to Ask ✅
+
+```
+User: "Add UUID generation"
+
+AI: "Instalando uuid (5KB)..."
+[just adds it, no alternatives needed]
+```
+
+### Example 3: Native Alternative Exists ✅
+
+```
+User: "Format dates as 'DD/MM/YYYY'"
+
+AI: "Para formatação de datas:
+
+📦 Opção A: Nativa (Intl.DateTimeFormat)
+Tamanho: 0 KB (built-in)
+✅ Prós: Zero dependencies, i18n suporte
+⚠️ Contras: API mais verbosa
+
+📦 Opção B: date-fns
+Tamanho: 5 KB (apenas função format)
+✅ Prós: API simples e clara
+⚠️ Contras: +5KB no bundle
+
+Para caso simples como este, recomendo Opção A (nativa).
+Concorda ou prefere date-fns?"
+```
+
+## Remember
+
+**>500kb = present alternatives with sizes and trade-offs.**
+
+Let user decide based on:
+- Bundle size impact
+- Features needed
+- Maintenance status
+- Team familiarity
+
+Don't hide the cost of dependencies.

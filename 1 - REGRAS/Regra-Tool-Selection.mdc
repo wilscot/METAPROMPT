@@ -1,0 +1,248 @@
+---
+alwaysApply: true
+description: Dialogue about tool/service/framework choices using scope criteria
+---
+
+# Tool Selection Rules
+
+## Core Principle
+
+Before suggesting any **tool, service, or framework**, evaluate it against scope criteria and present alternatives when appropriate.
+
+## Step 1: Check Scope
+
+Is the tool in `escopo.md` **"Ferramentas Pré-Aprovadas"** list?
+
+**YES** → Use it directly, mention why:
+```
+"Usando Prisma (pré-aprovado: 100% automação, alto domínio IA)"
+```
+
+**NO** → Continue to Step 2
+
+## Step 2: Evaluate Using Scope Criteria
+
+Evaluate against `escopo.md` Section 2 criteria:
+
+### 📊 Automação (Automation)
+- **100%** → Everything via code/CLI, zero manual steps ✅
+- **80-99%** → 1-2 simple manual steps acceptable ⚠️  
+- **60-79%** → Some GUI required for configs ⚠️
+- **< 60%** → Multiple manual steps required ❌
+
+### 🤖 Domínio IA (AI Knowledge)
+- **Alto** → Deep knowledge, can generate complete code ✅
+- **Médio** → Basic knowledge, may need docs ⚠️
+- **Baixo** → Limited knowledge, risky implementation ❌
+
+### ⚙️ Setup (Complexity)
+- **Simples** → 1-3 commands to get running ✅
+- **Moderado** → 4-8 commands or external account ⚠️
+- **Complexo** → >10 steps or multiple external services ❌
+
+## Step 3: Decision Tree
+
+### Score: All ✅ (Green)
+→ Use directly, mention scores briefly
+
+### Score: Mix of ✅ and ⚠️ (Yellow)  
+→ Present 2-3 alternatives with comparison
+→ Ask user to choose
+
+### Score: Any ❌ (Red)
+→ DO NOT suggest this tool
+→ Present 2-3 better alternatives
+→ Explain why original doesn't meet criteria
+
+## Step 4: Presentation Format
+
+When presenting alternatives:
+
+```
+🔍 Análise de [Categoria - ex: Database]
+
+Preciso escolher [tipo de ferramenta] para [propósito do projeto].
+
+Opção A: [Nome - ex: SQLite + Prisma]
+📊 Scores:
+  - Automação: 100% ✅ (schema via Prisma, migrations automáticas)
+  - Domínio IA: Alto ✅ (conheço profundamente)
+  - Setup: 2 comandos ✅ (prisma init + generate)
+  
+✅ Prós:
+  - Local-first, funciona offline
+  - Zero configuração manual
+  - File-based, fácil backup
+  
+⚠️ Contras:
+  - Não ideal para >100GB dados
+  - Sem recursos avançados (replicação)
+
+📦 Melhor para: Projetos pequenos/médios, desenvolvimento local
+
+---
+
+Opção B: [Nome - ex: PostgreSQL + Prisma]
+📊 Scores:
+  - Automação: 100% ✅ (schema via Prisma)
+  - Domínio IA: Alto ✅
+  - Setup: 4 comandos ⚠️ (Docker + Prisma)
+  
+✅ Prós:
+  - Escalável, produção-ready
+  - Recursos avançados completos
+  
+⚠️ Contras:
+  - Requer Docker rodando
+  - Setup mais complexo
+
+📦 Melhor para: Projetos médios/grandes, produção
+
+---
+
+Opção C: [Nome - ex: Supabase]
+📊 Scores:
+  - Automação: 60% ⚠️ (schema via SQL mas UI para configs)
+  - Domínio IA: Médio ⚠️ (menos documentação clara)
+  - Setup: Variável ⚠️ (requer conta, configs online)
+  
+✅ Prós:
+  - Auth/Storage prontos
+  - Interface visual para debug
+  
+⚠️ Contras:
+  - Requer GUI para algumas configs (baixa automação)
+  - Rate limits no free tier
+  - Dependência de serviço externo
+
+📦 Melhor para: MVPs rápidos com auth pronta
+
+---
+
+❓ Qual opção prefere? (A / B / C / outra)
+```
+
+## Step 5: After User Decides
+
+Proceed with chosen tool without further questions about it.
+
+## What NEVER to Do
+
+❌ Suggest tools requiring manual GUI setup (without warning)
+❌ Use tools with "Baixo" (Low) AI Domain score
+❌ Decide unilaterally when multiple good options exist
+❌ Hide trade-offs or present biased comparison
+❌ Suggest tools just because "popular" without evaluating criteria
+❌ Ignore escopo.md pre-approved list
+
+## What ALWAYS to Do
+
+✅ Check pre-approved list first
+✅ Evaluate using scope criteria (Automação, Domínio IA, Setup)
+✅ Be transparent about limitations
+✅ Present objective pros/cons
+✅ Let user make final decision when options exist
+✅ Explain scores briefly (why 100% automation, etc)
+✅ Provide "Melhor para" guidance for each option
+
+## Common Scenarios
+
+### Scenario 1: Pre-Approved Tool ✅
+
+```
+User needs ORM for SQLite database
+
+AI: "Usando Prisma com SQLite (pré-aprovado).
+📊 Scores: 100% automação, Alto domínio IA, 2 comandos setup"
+
+[No need to present alternatives]
+```
+
+### Scenario 2: Multiple Good Options ✅
+
+```
+User needs state management, not specified in scope
+
+AI: [Presents Zustand vs Context API vs Jotai analysis]
+AI: "❓ Qual opção prefere?"
+
+[Wait for user choice]
+```
+
+### Scenario 3: Tool Doesn't Meet Criteria ❌
+
+```
+User asks about PocketBase
+
+AI: "Detectei problema com PocketBase:
+📊 Scores:
+  - Automação: 40% ❌ (collections/campos manuais via GUI)
+  - Domínio IA: Médio ⚠️
+  - Setup: Simples ✅
+
+Não recomendo: baixa automação (requer criação manual).
+
+Alternativas que atendem critérios:
+[Present SQLite+Prisma vs PostgreSQL+Prisma]"
+```
+
+### Scenario 4: User Specifies Unknown Tool ⚠️
+
+```
+Escopo mentions [tech X] that AI doesn't know well
+
+AI: "Detectei [tech X] no escopo.
+📊 Meu conhecimento: Baixo ❌
+
+⚠️ Aviso: Posso ter dificuldades implementando [tech X].
+
+Alternativas que domino:
+[Present 2-3 alternatives AI knows well]
+
+Prefere:
+A) Continuar com [tech X] (riscos: implementação incompleta)
+B) Usar alternativa que conheço melhor
+C) Você fornece mais detalhes sobre [tech X]
+
+Escolha A/B/C"
+```
+
+## Integration with Other Rules
+
+- **00-universal-dependencies.mdc**: This = tools/services, That = libraries
+- **00-universal-ask-first.mdc**: This = WHICH tool, That = HOW to use
+- **00-universal-workflow.mdc**: Present analysis → Get approval → Execute
+
+## Examples by Category
+
+### Database/ORM ✅
+Pre-approved: SQLite+Prisma, PostgreSQL+Prisma
+Present alternatives: If user asks for MySQL, MongoDB, Supabase
+
+### Backend Framework ✅
+Pre-approved: Next.js API Routes, Express, Fastify
+Present alternatives: If user asks for NestJS, Koa
+
+### Frontend Framework ✅
+Pre-approved: Next.js, React+Vite
+Present alternatives: If user asks for Vue, Angular, Svelte
+
+### Styling ✅
+Pre-approved: Tailwind CSS, CSS Modules
+Present alternatives: If user asks for styled-components, emotion
+
+### UI Components ✅
+Pre-approved: shadcn/ui, Radix UI
+Present alternatives: If user asks for Material-UI, Ant Design
+
+## Remember
+
+**Before suggesting ANY tool:**
+1. Check pre-approved list
+2. Evaluate criteria scores
+3. Present alternatives if needed
+4. Let user decide
+
+**Transparency > Convenience**
+
+Better to discuss options upfront than implement wrong tool and rewrite.
