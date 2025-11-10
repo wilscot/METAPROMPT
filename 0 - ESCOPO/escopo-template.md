@@ -321,35 +321,148 @@ Total = Preço × Quantidade - Desconto
 
 ## 8. ESTRUTURA DE DADOS
 
-⚠️ **NÃO ADICIONE SQL CREATE TABLE AQUI. Esta seção é apenas interfaces TypeScript.**
-
-### Interface TypeScript:
-
-```typescript
-export interface [NomeDoModelo] {
-  id: string;
-  [campo1]: [tipo];
-  [campo2]: [tipo];
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface [OutroModelo] {
-  // ...
-}
-```
-
-### Persistência:
-
-**Tipo:** [Database / File system / LocalStorage / etc]
-
-**Localização:** [Ex: Banco local / Cloud / Browser storage]
-
-**Formato:** [Descrever formato de dados, ex: "SQL com 2 schemas isolados" / "JSON com arrays" / "Key-value pairs"]
-
-**Observações:** [Qualquer detalhe relevante sobre persistência, ex: "Schemas LAB e PROD separados" / "Dados em memória apenas"]
+⚠️ **IMPORTANTE: Esta seção usa APENAS linguagem natural. Nada de código!**
 
 ---
+
+### 📋 Entidades e Campos
+
+Liste cada entidade (tabela/modelo/collection) com seus campos em formato de lista simples.
+
+**Formato:**
+```
+[Nome da Entidade]:
+- campo1: tipo (constraints/descrição)
+- campo2: tipo (constraints/descrição)
+```
+
+**Exemplo preenchido:**
+```
+Produto:
+- id: número único (gerado automaticamente)
+- nome: texto (obrigatório, máximo 200 caracteres)
+- precoUSD: decimal (obrigatório, valor positivo)
+- cotacao: decimal (obrigatório, valor positivo)
+- freteTotal: decimal (obrigatório, pode ser zero)
+- quantidade: inteiro (obrigatório, padrão 0, não negativo)
+- fornecedor: texto (opcional)
+- tipo: texto (valores: 'LAB' ou 'PROD')
+- deletedAt: data/hora (null se ativo)
+- createdAt: data/hora (gerado automaticamente)
+- updatedAt: data/hora (atualizado automaticamente)
+
+Cenario:
+- id: número único (gerado automaticamente)
+- produtoId: número (referência ao Produto)
+- nome: texto (obrigatório)
+- precoVendaClassico: decimal (obrigatório)
+- precoVendaPremium: decimal (obrigatório)
+- taxaClassico: decimal (obrigatório, percentual)
+- taxaPremium: decimal (obrigatório, percentual)
+- freteCobrado: decimal (obrigatório)
+- lucroClassico: decimal (calculado)
+- lucroPremium: decimal (calculado)
+- createdAt: data/hora (gerado automaticamente)
+- updatedAt: data/hora (atualizado automaticamente)
+```
+
+**Suas entidades:**
+
+[Preencha aqui suas entidades no mesmo formato acima]
+
+---
+
+### 🔗 Relacionamentos
+
+Descreva como as entidades se relacionam em linguagem natural.
+
+**Formato:**
+```
+[Entidade A] → [Entidade B]:
+- Tipo: [um-para-muitos / muitos-para-muitos / um-para-um]
+- Descrição: [explicação em português]
+```
+
+**Exemplo preenchido:**
+```
+Produto → Cenario:
+- Tipo: um-para-muitos
+- Um produto pode ter múltiplos cenários de simulação
+- Cada cenário pertence a apenas um produto
+
+Produto → Venda:
+- Tipo: um-para-muitos
+- Um produto pode ter múltiplas vendas registradas
+- Cada venda é de um único produto
+```
+
+**Seus relacionamentos:**
+
+[Preencha aqui seus relacionamentos no mesmo formato acima]
+
+---
+
+### 💾 Persistência
+
+**Tipo:** [Database / File system / LocalStorage / Memory / etc]
+
+**Tecnologia específica (se definida):** [SQLite / PostgreSQL / MongoDB / JSON files / etc]
+
+**Localização:** [Banco local / Cloud / Browser storage / Server]
+
+**Formato e Organização:**
+[Descreva textualmente como os dados são organizados]
+
+**Exemplo:**
+```
+- SQLite local no diretório raiz do projeto
+- Dois schemas separados: 'lab' para simulações e 'prod' para dados reais
+- Soft delete implementado (campo deletedAt em vez de DELETE real)
+- Timestamps automáticos em todas as tabelas
+```
+
+**Seu formato:**
+
+[Descreva aqui]
+
+**Observações adicionais:**
+[Qualquer detalhe relevante sobre persistência, backup, migração, etc]
+
+---
+
+### ⚠️ VALIDAÇÃO DESTA SEÇÃO
+
+Antes de continuar, verifique:
+
+**❌ VOCÊ NÃO DEVE TER ESCRITO:**
+- [ ] Código TypeScript (interface, type, export, etc)
+- [ ] SQL (CREATE TABLE, ALTER TABLE, etc)
+- [ ] Schema de ORM (Prisma schema, Drizzle schema, etc)
+- [ ] Blocos de código com ```typescript ou ```sql
+- [ ] Imports ou exports
+- [ ] Chaves { } ou colchetes [ ] de código
+- [ ] Ponto-e-vírgula ; no final de linhas
+- [ ] Palavras-chave de programação (const, let, var, function, etc)
+
+**✅ VOCÊ DEVE TER APENAS:**
+- [ ] Listas com hífen (-) ou bullet points
+- [ ] Descrições em português/linguagem natural
+- [ ] Tipos escritos por extenso (texto, número, decimal, data/hora)
+- [ ] Relacionamentos descritos textualmente
+
+Se você tem algo da lista ❌ → REMOVA e reescreva em linguagem natural!
+
+---
+
+### 💡 POR QUE SEM CÓDIGO?
+
+O código será gerado automaticamente pelos meta-prompts baseado nesta descrição.
+
+**Vantagens de manter sem código:**
+- ✅ Escopo fica legível para não-programadores
+- ✅ Pode mudar tech stack sem reescrever escopo
+- ✅ Foco no "O QUE" (negócio), não no "COMO" (técnico)
+- ✅ Documentação clara separada de implementação
 
 ## 9. CASOS DE USO
 

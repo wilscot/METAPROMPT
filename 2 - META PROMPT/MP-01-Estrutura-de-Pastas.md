@@ -1,15 +1,5 @@
 # 01 - ESTRUTURA DE PASTAS
 
-**COMO USAR:**
-1. Abra Claude Web
-2. Anexe seu `@escopo.md`
-3. Cole este prompt completo
-4. Claude gera 1 artifact com prompt para Cursor
-5. Copie e cole no Cursor Chat
-6. Valide com `tree` ou `ls -R`
-7. Avance para `02-configuracoes.md`
-
----
 
 ```
 ## VERIFICAÇÃO DE TECH STACK
