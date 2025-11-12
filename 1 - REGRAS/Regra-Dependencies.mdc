@@ -104,6 +104,109 @@ Manutenção: [Active/Maintenance/Deprecated]
 📦 Melhor para: [use case]
 ```
 
+## Native Dependencies Warning
+
+### Core Principle
+
+Before adding ANY dependency that compiles native code, warn user about build requirements and present pure JS alternatives.
+
+### How to Identify Native Dependencies
+
+**Common native dependencies:**
+- better-sqlite3 (SQLite)
+- bcrypt (password hashing)
+- sharp (image processing)
+- canvas (canvas manipulation)
+- sqlite3 (SQLite)
+- argon2 (password hashing)
+- node-sass (Sass compiler)
+- node-gyp (build system)
+
+**Detection signs:**
+- Has "node-gyp" in dependencies
+- Requires Python/C++ compiler
+- Has "binding.gyp" file in package
+- Listed in [node-gyp dependencies](https://github.com/nodejs/node-gyp/wiki/Node-gyp's-Wiki)
+
+### When Detected
+
+Stop and present analysis:
+⚠️ Dependência Nativa Detectada
+Você pediu: [feature]
+Sugeri: [native library]
+📊 Análise:
+Biblioteca: [name]
+Tipo: Compilação nativa (C++/Rust/etc)
+Tamanho: [size]
+✅ Prós:
+
+Performance superior
+[other benefits]
+
+⚠️ Contras:
+
+Windows: Requer Visual Studio Build Tools (~6GB)
+macOS: Requer Xcode Command Line Tools
+Linux: Requer build-essential
+Compilação mais lenta no npm install
+Pode falhar em ambientes restritos (CI/CD, Docker)
+
+
+📦 Alternativa Pura JS:
+Biblioteca: [alternative]
+Tipo: JavaScript puro (sem compilação)
+Tamanho: [size]
+Performance: [comparison - ex: "95% da nativa" ou "suficiente para apps pequenos"]
+✅ Prós:
+
+Zero requisitos de build
+Funciona em qualquer ambiente
+npm install instantâneo
+Portabilidade total
+
+⚠️ Contras:
+
+[performance trade-off if significant]
+
+
+❓ Qual opção prefere?
+A) [native library] (melhor performance, requer build tools)
+B) [pure JS alternative] (sem requisitos, boa performance)
+Para projetos pequenos/médios: recomendo B
+Para projetos grandes com alta carga: considere A
+
+### Alternative Recommendations
+
+**Database:**
+- better-sqlite3 → @libsql/client OR sql.js
+- sqlite3 → @libsql/client OR sql.js
+
+**Crypto/Hashing:**
+- bcrypt → bcryptjs
+- argon2 → @noble/hashes (argon2)
+
+**Images:**
+- sharp → jimp OR canvas (pure JS) OR @squoosh/lib
+
+**Canvas:**
+- canvas → rough-canvas (pure JS, limited features)
+
+### Exception: When NOT to Present
+
+**Don't warn if:**
+- Dependency is in escopo.md pre-approved list
+- User explicitly asked for the native version
+- Project is large-scale (escopo says "Large" complexity)
+- No pure JS alternative exists
+
+### Integration Points
+
+- Applies during PLAN phase (workflow rule)
+- Before installing dependency >500kb (size rule)
+- When generating package.json (MP-02)
+
+---
+
 ## Common Scenarios
 
 ### Scenario 1: Date Handling

@@ -241,7 +241,170 @@ Se escolher estas, IA NÃO precisa perguntar (alto domínio + alta automação):
 - prettier
 - [outras dev tools]
 ```
+## 4.1 REQUISITOS DE AMBIENTE
 
+⚠️ **Liste requisitos específicos de sistema operacional ou ferramentas necessárias**
+
+---
+
+### Sistema Operacional:
+[Windows / Linux / macOS / Todos / Qualquer]
+
+---
+
+### Pré-requisitos de Software:
+
+**Obrigatórios:**
+- Node.js: [versão mínima, ex: 18.x ou superior]
+- [Outro software obrigatório, se aplicável]
+
+**Opcionais:**
+- [Software opcional que melhora desenvolvimento]
+
+---
+
+### ⚠️ Dependências com Requisitos Especiais
+
+**Se seu projeto usa bibliotecas que compilam código nativo, documente aqui:**
+
+**Formato:**
+```
+📦 [Nome da biblioteca]:
+- Propósito: [para que serve]
+- Requisito especial: [o que precisa instalar]
+- Afeta: [Windows / macOS / Linux / Todos]
+- Alternativa: [biblioteca equivalente sem requisitos, se existir]
+```
+
+**Exemplo preenchido:**
+```
+📦 better-sqlite3:
+- Propósito: Database SQLite local de alta performance
+- Requisito especial: Visual Studio Build Tools (Windows)
+- Afeta: Windows
+- Alternativa: @libsql/client (puro JavaScript, performance similar)
+
+📦 bcrypt:
+- Propósito: Hash de senhas seguro
+- Requisito especial: Python + C++ compiler
+- Afeta: Windows, macOS
+- Alternativa: bcryptjs (puro JavaScript, mais lento mas funcional)
+```
+
+**Suas dependências especiais:**
+
+[Preencha aqui se aplicável, ou deixe "Nenhuma"]
+
+---
+
+### 📋 Lista de Bibliotecas Comuns com Requisitos:
+
+**Se usar alguma destas, documente acima:**
+- better-sqlite3 (SQLite nativo)
+- bcrypt (hash de senhas)
+- sharp (processamento de imagens)
+- canvas (manipulação canvas)
+- node-gyp (qualquer lib que use)
+- sqlite3 (SQLite nativo)
+- argon2 (hash de senhas)
+- node-sass (Sass/SCSS)
+
+---
+
+### 🔧 Instruções de Instalação (se necessário)
+
+**Se tem requisitos especiais, forneça comandos:**
+
+**Windows:**
+```
+[Comandos específicos Windows, se aplicável]
+Exemplo: npm install --global windows-build-tools
+```
+
+**macOS:**
+```
+[Comandos específicos macOS, se aplicável]
+Exemplo: xcode-select --install
+```
+
+**Linux:**
+```
+[Comandos específicos Linux, se aplicável]
+Exemplo: sudo apt-get install build-essential
+```
+
+**Ou escreva:** "Não há comandos especiais necessários" se não aplicável.
+
+---
+
+### ✅ Quando NÃO Preencher Esta Seção:
+
+**Deixe como "Nenhum requisito especial" se:**
+- Projeto usa apenas JavaScript/TypeScript puro
+- Todas as dependências são puras JS (sem compilação)
+- Funciona em qualquer SO sem instalações extras
+- Node.js + npm/yarn/pnpm é suficiente
+
+---
+
+### 💡 DICA: Como Saber Se Precisa?
+
+**Sinais de que você precisa documentar:**
+- 🔴 Erro "node-gyp" ao rodar npm install
+- 🔴 Erro "Python not found" ao instalar deps
+- 🔴 Erro "Visual Studio Build Tools required"
+- 🔴 Biblioteca usa código C/C++/Rust/Go
+
+**Se não viu nenhum desses erros:** Deixe como "Nenhum"
+
+---
+
+### 📌 EXEMPLO COMPLETO:
+
+```markdown
+
+## 4.1 REQUISITOS DE AMBIENTE
+
+### Sistema Operacional:
+Todos (Windows, macOS, Linux)
+
+### Pré-requisitos de Software:
+
+**Obrigatórios:**
+- Node.js: 20.x ou superior
+- pnpm: 8.x ou superior
+
+**Opcionais:**
+- Docker (se quiser rodar PostgreSQL local)
+
+### ⚠️ Dependências com Requisitos Especiais
+
+📦 better-sqlite3:
+- Propósito: Database SQLite local de alta performance
+- Requisito especial: Visual Studio Build Tools (Windows)
+- Afeta: Windows
+- Alternativa: @libsql/client (puro JavaScript)
+
+### 🔧 Instruções de Instalação
+
+**Windows:**
+Instalar Build Tools (escolha uma opção):
+
+Opção A - Via npm:
+```bash
+npm install --global windows-build-tools
+```
+
+Opção B - Manual:
+Baixar Visual Studio Build Tools:
+https://visualstudio.microsoft.com/downloads/
+
+Opção C - Usar alternativa:
+Trocar better-sqlite3 por @libsql/client no package.json
+
+**macOS/Linux:**
+Nenhuma instalação adicional necessária.
+```
 ---
 
 ## 5. REGRAS DE NEGÓCIO

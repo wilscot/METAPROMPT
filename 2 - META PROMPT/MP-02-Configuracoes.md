@@ -101,6 +101,124 @@ ARQUIVOS CONDICIONAIS:
 
 ---
 
+## ⚠️ VERIFICAÇÃO DE DEPENDÊNCIAS NATIVAS (NOVO)
+
+Antes de gerar o artifact, analise as dependências do package.json que será criado.
+
+### Dependências que requerem compilação (lista comum):
+- better-sqlite3
+- bcrypt
+- sharp
+- canvas
+- node-gyp
+- sqlite3
+- argon2
+- node-sass
+
+### SE detectar alguma:
+
+1. Identifique qual(is)
+2. Verifique se há alternativa pura JS
+3. Adicione aviso no final do artifact
+
+**Formato do aviso:**
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚨🚨🚨 ATENÇÃO CRÍTICA - LEIA ANTES DE CONTINUAR 🚨🚨🚨
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⛔ NÃO EXECUTE "npm install" AINDA! ⛔
+
+Este projeto usa dependências que COMPILAM CÓDIGO NATIVO:
+
+🔴 [lib1] ([propósito])
+🔴 [lib2] ([propósito])
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️ WINDOWS - REQUISITO OBRIGATÓRIO:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Visual Studio Build Tools PRECISA estar instalado.
+
+Se você NÃO tem instalado → npm install VAI FALHAR ❌
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔴 ESCOLHA UMA OPÇÃO ANTES DE PROSSEGUIR:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+┌─────────────────────────────────────────────────────────┐
+│ 🅰️  OPÇÃO A - INSTALAR BUILD TOOLS (30 min)            │
+│                                                          │
+│ ✅ Melhor performance                                    │
+│ ✅ Solução definitiva                                    │
+│ ⚠️  Download grande (~6GB)                              │
+│ ⚠️  Instalação demorada                                 │
+│                                                          │
+│ COMO FAZER:                                              │
+│ 1. Abra PowerShell COMO ADMINISTRADOR                   │
+│ 2. Execute:                                              │
+│    npm install --global windows-build-tools              │
+│ 3. Aguarde instalação (20-30 minutos)                   │
+│ 4. Depois rode: npm install                              │
+└─────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────┐
+│ 🅱️  OPÇÃO B - USAR ALTERNATIVA PURA JS (5 min) ⭐      │
+│                                                          │
+│ ✅ Zero requisitos                                       │
+│ ✅ Funciona imediatamente                                │
+│ ✅ Recomendado para projetos pequenos/médios            │
+│ ⚠️  Performance 90-95% da nativa (suficiente)          │
+│                                                          │
+│ COMO FAZER:                                              │
+│ 1. Abra: package.json                                    │
+│ 2. Substitua:                                            │
+│    "[lib1]" → "[alternativa1]"                           │
+│    "[lib2]" → "[alternativa2]"                           │
+│                                                          │
+│ EXEMPLO:                                                 │
+│ better-sqlite3 → @libsql/client                          │
+│ bcrypt → bcryptjs                                        │
+│ sharp → jimp                                             │
+│                                                          │
+│ 3. Depois rode: npm install                              │
+└─────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────┐
+│ 🅲  OPÇÃO C - USAR WSL/DOCKER (se souber)              │
+│                                                          │
+│ ✅ Ambiente Linux (sem problemas Windows)                │
+│ ⚠️  Requer conhecimento de WSL/Docker                   │
+└─────────────────────────────────────────────────────────┘
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💡 RECOMENDAÇÃO:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📦 Projeto pequeno/médio → OPÇÃO B (alternativa JS)
+🚀 Projeto grande/performance crítica → OPÇÃO A (Build Tools)
+👥 Time com Windows + Mac + Linux → OPÇÃO B (portabilidade)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📚 DOCUMENTAÇÃO:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Build Tools Windows:
+https://github.com/nodejs/node-gyp#on-windows
+
+Alternativas JS:
+- better-sqlite3 vs @libsql/client: https://github.com/libsql/libsql
+- bcrypt vs bcryptjs: https://www.npmjs.com/package/bcryptjs
+- sharp vs jimp: https://www.npmjs.com/package/jimp
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚨 IMPORTANTE: SÓ RODE "npm install" DEPOIS DE ESCOLHER! 🚨
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+---
+
 GERE O ARTIFACT:
 
 Título: "Prompt para Cursor: Criar Arquivos de Configuração"
@@ -161,6 +279,8 @@ npm install
 # Deve instalar sem erros
 
 Se qualquer validação falhar, arquivo está incompleto.
+
+[SE HOUVER DEPS NATIVAS: INCLUIR AVISO FORMATADO ACIMA]
 ```
 
 IMPORTANTE:
@@ -168,4 +288,5 @@ IMPORTANTE:
 - Versions compatíveis entre si
 - Scripts adequados ao framework
 - Configurações TypeScript corretas
+- Aviso claro sobre dependências nativas (se aplicável)
 ```
