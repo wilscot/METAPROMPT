@@ -10,199 +10,196 @@
 
 4. Claude gera 1 artifact com TODOS os micro-prompts numerados
 
-5. **NÃO copie tudo de uma vez!**
+5. **NAO copie tudo de uma vez!**
 
-6. Copie **UM prompt por vez** (cada um está em caixa única copiável)
+6. Copie **UM prompt por vez** (cada um esta em caixa unica copiavel)
 
 7. Cole no Cursor Chat
 
-8. Valide cada feature implementada antes de avançar
+8. Valide cada feature implementada antes de avancar
 
-9. Repita até completar todos os prompts
+9. Repita ate completar todos os prompts
 
 ---
 
 ```
 
-Analise o @escopo.md e gere UM ÚNICO artifact contendo TODOS os micro-prompts de implementação, organizados por fase.
+Analise o @escopo.md e gere UM UNICO artifact contendo TODOS os micro-prompts de implementacao, organizados por fase.
 
-ANÁLISE DE IMPLEMENTAÇÃO:
+ANALISE DE IMPLEMENTACAO:
 
 1. FASES DO PROJETO:
-   - Extrair da seção "Funcionalidades" do escopo
-   - Identificar dependências entre features
-   - Ordenar logicamente (setup → core → advanced → polish)
+   - Extrair da secao "Funcionalidades" do escopo
+   - Identificar dependencias entre features
+   - Ordenar logicamente (setup -> core -> advanced -> polish)
 
 2. GRANULARIDADE:
-   - Feature simples (1 componente, lógica básica): 1 prompt
-   - Feature média (múltiplos arquivos, lógica moderada): 1-2 prompts
-   - Feature complexa (fluxo completo, integrações): 2-4 prompts
-   - Quebrar em: setup → core logic → UI → integration
+   - Feature simples (1 componente, logica basica): 1 prompt
+   - Feature media (multiplos arquivos, logica moderada): 1-2 prompts
+   - Feature complexa (fluxo completo, integracoes): 2-4 prompts
+   - Quebrar em: setup -> core logic -> UI -> integration
 
-3. DEPENDÊNCIAS:
+3. DEPENDENCIAS:
    - Prompt N+1 assume que prompt N foi completado
-   - Mencionar arquivos que já devem existir
-   - Não repetir implementações de prompts anteriores
+   - Mencionar arquivos que ja devem existir
+   - Nao repetir implementacoes de prompts anteriores
 
 ---
 
-🔴 REGRA CRÍTICA: FORMATO DE CADA PROMPT
+REGRA CRITICA: FORMATO DE CADA PROMPT
 
 Cada prompt DEVE seguir este formato EXATO:
 
-```
-## 📦 PHASE [N]: [NOME DA FASE]
+## PHASE [N]: [NOME DA FASE]
 
-### Prompt [N.X]: [Título Descritivo]
+### Prompt [N.X]: [Titulo Descritivo]
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎯 COPIE DAQUI PARA BAIXO E COLE NO CURSOR (PROMPT COMPLETO)
+COPIE DAQUI PARA BAIXO E COLE NO CURSOR (PROMPT COMPLETO)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 [CONTEXTO]
-Breve descrição do que será implementado (1-2 frases)
+Breve descricao do que sera implementado (1-2 frases)
 
-[IMPLEMENTAÇÃO]
+[IMPLEMENTACAO]
 
 Arquivo: @caminho/completo/arquivo1.ts
 
-Descrição: O que este arquivo faz
+Descricao: O que este arquivo faz
 
-Conteúdo:
+Conteudo:
 - Item 1: detalhes
 - Item 2: detalhes
-- Função X(params): lógica esperada
+- Funcao X(params): logica esperada
 
-Schema/Interface (se aplicável):
+Schema/Interface (se aplicavel):
 ```
-código aqui se necessário
+codigo aqui se necessario
 ```
 
 Comportamento:
-- Ação A → Resultado B
-- Validação C → Erro D
+- Acao A -> Resultado B
+- Validacao C -> Erro D
 
 ---
 
 Arquivo: @caminho/completo/arquivo2.tsx
 
-Descrição: O que este arquivo faz
+Descricao: O que este arquivo faz
 
 Componente: NomeDoComponente
 
 Props:
-- prop1: tipo (descrição, valores válidos)
+- prop1: tipo (descricao, valores validos)
 - prop2: tipo (comportamento esperado)
 
 Estado:
-- state1: tipo (propósito)
+- state1: tipo (proposito)
 - state2: tipo (quando muda)
 
-Renderização:
+Renderizacao:
 - Elemento 1: quando/como
 - Elemento 2: condicional
-- Interação X: onClick → ação
+- Interacao X: onClick -> acao
 
 ---
 
 [ARQUIVOS ENVOLVIDOS]
 
 Criar:
-- @caminho/arquivo1.ts (propósito)
-- @caminho/arquivo2.tsx (propósito)
+- @caminho/arquivo1.ts (proposito)
+- @caminho/arquivo2.tsx (proposito)
 
 Modificar:
 - @caminho/existente.ts (adicionar X)
 
-Usar (já existem):
-- @caminho/lib.ts (função Y)
+Usar (ja existem):
+- @caminho/lib.ts (funcao Y)
 - @caminho/types.ts (tipo Z)
 
 ---
 
-[REGRAS DE NEGÓCIO]
+[REGRAS DE NEGOCIO]
 
-- Regra 1: descrição completa
-- Regra 2: fórmula ou lógica
-- Validação X: condição → mensagem de erro
-
----
-
-[NÃO IMPLEMENTE]
-
-❌ Feature X (será feita no prompt N.Y)
-❌ Otimização Y (fase de polish)
-❌ Funcionalidade Z (não está no escopo)
+- Regra 1: descricao completa
+- Regra 2: formula ou logica
+- Validacao X: condicao -> mensagem de erro
 
 ---
 
-[VALIDAÇÕES ANTES DE EXECUTAR]
+[NAO IMPLEMENTE]
 
-□ Dependência A existe (Prompt N.X)
-□ Biblioteca B instalada (package.json)
-□ Arquivo C criado (Prompt N.Y)
+- Feature X (sera feita no prompt N.Y)
+- Otimizacao Y (fase de polish)
+- Funcionalidade Z (nao esta no escopo)
 
 ---
 
-[CRITÉRIOS DE ACEITE]
+[VALIDACOES ANTES DE EXECUTAR]
+
+- [ ] Dependencia A existe (Prompt N.X)
+- [ ] Biblioteca B instalada (package.json)
+- [ ] Arquivo C criado (Prompt N.Y)
+
+---
+
+[CRITERIOS DE ACEITE]
 
 - [ ] Comportamento 1 funciona
-- [ ] Validação 2 ativa
+- [ ] Validacao 2 ativa
 - [ ] UI 3 renderiza corretamente
-- [ ] Erro 4 é tratado
-- [ ] Teste manual: ação X → resultado Y
+- [ ] Erro 4 e tratado
+- [ ] Teste manual: acao X -> resultado Y
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-✅ FIM DO PROMPT - VALIDE ANTES DE AVANÇAR PARA PRÓXIMO
+FIM DO PROMPT - VALIDE ANTES DE AVANCAR PARA PROXIMO
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
 
 ---
 
-🔴 REGRAS PARA O CONTEÚDO DOS PROMPTS:
+REGRAS PARA O CONTEUDO DOS PROMPTS:
 
-1. **TUDO dentro da caixa copiável:**
-   - Contexto, arquivos, regras, validações, critérios
+1. **TUDO dentro da caixa copiavel:**
+   - Contexto, arquivos, regras, validacoes, criterios
    - Zero texto fora da caixa
-   - IA deve conseguir executar olhando APENAS o que está na caixa
+   - IA deve conseguir executar olhando APENAS o que esta na caixa
 
 2. **Caminhos de arquivo SEMPRE com @:**
-   - @src/app/page.tsx (não "src/app/page.tsx")
+   - @src/app/page.tsx (nao "src/app/page.tsx")
    - @src/components/Button.tsx
-   - Cursor entende @ como referência ao arquivo
+   - Cursor entende @ como referencia ao arquivo
 
-3. **Instruções auto-contidas:**
-   - Não assumir que IA leu prompt anterior
-   - Referenciar dependências: "usar função X de @src/lib/utils.ts (criada no Prompt 1.2)"
-   - Especificar valores: "taxaClassico default: 11.0" (não "valor padrão")
+3. **Instrucoes auto-contidas:**
+   - Nao assumir que IA leu prompt anterior
+   - Referenciar dependencias: "usar funcao X de @src/lib/utils.ts (criada no Prompt 1.2)"
+   - Especificar valores: "taxaClassico default: 11.0" (nao "valor padrao")
 
-4. **Detalhes técnicos completos:**
+4. **Detalhes tecnicos completos:**
    - Tipos de dados: "quantidadeVendida: integer > 0"
-   - Validações: "se estoque < quantidadeVendida → erro 400 'Estoque insuficiente'"
-   - Fórmulas: "lucro = receita - custoTotal - taxaML"
+   - Validacoes: "se estoque < quantidadeVendida -> erro 400 'Estoque insuficiente'"
+   - Formulas: "lucro = receita - custoTotal - taxaML"
 
-5. **Sem abreviações ou "...":**
-   - ❌ "Campos: nome, preço, etc"
-   - ✅ "Campos: nome (string), precoUSD (number > 0), cotacao (number > 0)"
+5. **Sem abreviacoes ou "...":**
+   - NAO USE "Campos: nome, preco, etc"
+   - USE "Campos: nome (string), precoUSD (number > 0), cotacao (number > 0)"
 
 6. **Separadores visuais:**
-   - Usar ━━━ para dividir seções
+   - Usar linhas para dividir secoes
    - Usar --- para dividir arquivos
-   - Usar 🎯 ✅ ❌ □ para destacar
 
 ---
 
-🔴 ESTRUTURA DO ARTIFACT:
+ESTRUTURA DO ARTIFACT:
 
 ```markdown
-# 🎯 MICRO-PROMPTS DE IMPLEMENTAÇÃO - [Nome do Projeto]
+# MICRO-PROMPTS DE IMPLEMENTACAO - [Nome do Projeto]
 
-**INSTRUÇÕES CRÍTICAS:**
-- ⚠️ Cole apenas **UM** prompt por vez no Cursor Chat
-- ⏳ Aguarde implementação **completa**
-- ✅ **Valide** funcionamento (rode, teste, verifique)
-- 🚫 **NÃO** avance se houver erros
-- 📋 Marque cada prompt como ✅ após completado
+**INSTRUCOES CRITICAS:**
+- Cole apenas **UM** prompt por vez no Cursor Chat
+- Aguarde implementacao **completa**
+- **Valide** funcionamento (rode, teste, verifique)
+- **NAO** avance se houver erros
+- Marque cada prompt como concluido apos completado
 
 **Total de prompts:** [X]  
 **Estimativa:** [Y horas/dias]  
@@ -210,32 +207,32 @@ Usar (já existem):
 
 ---
 
-## 📦 PHASE 1: [NOME DA FASE] (Prompts 1.1 - 1.X)
+## PHASE 1: [NOME DA FASE] (Prompts 1.1 - 1.X)
 
-### Prompt 1.1: [Título]
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎯 COPIE DAQUI PARA BAIXO E COLE NO CURSOR (PROMPT COMPLETO)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-[CONTEÚDO COMPLETO DO PROMPT 1.1]
+### Prompt 1.1: [Titulo]
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-✅ FIM DO PROMPT - VALIDE ANTES DE AVANÇAR
+COPIE DAQUI PARA BAIXO E COLE NO CURSOR (PROMPT COMPLETO)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[CONTEUDO COMPLETO DO PROMPT 1.1]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FIM DO PROMPT - VALIDE ANTES DE AVANCAR
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ---
 
-### Prompt 1.2: [Título]
+### Prompt 1.2: [Titulo]
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎯 COPIE DAQUI PARA BAIXO E COLE NO CURSOR (PROMPT COMPLETO)
+COPIE DAQUI PARA BAIXO E COLE NO CURSOR (PROMPT COMPLETO)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-[CONTEÚDO COMPLETO DO PROMPT 1.2]
+[CONTEUDO COMPLETO DO PROMPT 1.2]
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-✅ FIM DO PROMPT - VALIDE ANTES DE AVANÇAR
+FIM DO PROMPT - VALIDE ANTES DE AVANCAR
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ---
@@ -244,48 +241,48 @@ Usar (já existem):
 
 ---
 
-## 📊 RESUMO DA EXECUÇÃO
+## RESUMO DA EXECUCAO
 
 **Total de prompts gerados:** [X]  
 **Fases:** [Y]  
 **Features implementadas:** [Z]
 
-**Ordem de execução:**
-1. Execute prompts em ordem numérica
-2. Valide cada um antes de avançar
+**Ordem de execucao:**
+1. Execute prompts em ordem numerica
+2. Valide cada um antes de avancar
 3. Se erro, corrija antes de prosseguir
-4. Marque como ✅ após completado
+4. Marque como concluido apos completado
 
 ---
 
-## ✅ CRITÉRIOS DE SUCESSO DO PROJETO
+## CRITERIOS DE SUCESSO DO PROJETO
 
-Sistema está **COMPLETO** quando:
-- ✅ Todos [X] prompts executados
-- ✅ Todos checkboxes da seção 11 do escopo.md marcados
-- ✅ Testes manuais críticos passam
-- ✅ `npm run build` executa sem erros
+Sistema esta **COMPLETO** quando:
+- Todos [X] prompts executados
+- Todos checkboxes da secao 6 do escopo.md marcados (Criterios de Conclusao MVP)
+- Testes manuais criticos passam
+- `npm run build` executa sem erros
 ```
 
 ---
 
-🔴 EXEMPLO DE PROMPT BEM FORMATADO:
+EXEMPLO DE PROMPT BEM FORMATADO:
 
 ```
-### Prompt 2.3: API Route + Página - Produtos LAB
+### Prompt 2.3: API Route + Pagina - Produtos LAB
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎯 COPIE DAQUI PARA BAIXO E COLE NO CURSOR (PROMPT COMPLETO)
+COPIE DAQUI PARA BAIXO E COLE NO CURSOR (PROMPT COMPLETO)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 [CONTEXTO]
-Criar página de produtos LAB com formulário CRUD e lista.
+Criar pagina de produtos LAB com formulario CRUD e lista.
 
-[IMPLEMENTAÇÃO]
+[IMPLEMENTACAO]
 
 Arquivo: @src/app/lab/produtos/page.tsx
 
-Descrição: Página principal de produtos LAB
+Descricao: Pagina principal de produtos LAB
 
 Componente: ProdutosLabPage
 
@@ -300,20 +297,20 @@ useEffect:
 - Setar loading=true antes, loading=false depois
 - Salvar em estado produtos
 
-Renderização:
-- Botão "+ Novo Produto LAB" (onClick: abre modal com produtoEditando=null)
+Renderizacao:
+- Botao "+ Novo Produto LAB" (onClick: abre modal com produtoEditando=null)
 - <ProdutoList modo="LAB" produtos={produtos} loading={loading} onEdit={setProdutoEditando} onDelete={handleDelete} />
 - <Dialog open={modalAberto} onOpenChange={setModalAberto}>
     <ProdutoForm modo="LAB" produto={produtoEditando} onSuccess={refetch} />
   </Dialog>
 
-Função handleDelete(id):
-- Confirm dialog: "Deletar [Nome]? (será movido para lixeira)"
+Funcao handleDelete(id):
+- Confirm dialog: "Deletar [Nome]? (sera movido para lixeira)"
 - DELETE /api/produtos/[id]?modo=LAB
 - Toast sucesso: "Produto deletado!"
 - refetch()
 
-Função refetch():
+Funcao refetch():
 - Buscar produtos novamente
 - Fechar modal
 - Limpar produtoEditando
@@ -322,14 +319,14 @@ Função refetch():
 
 Arquivo: @src/components/ProdutoForm.tsx
 
-Descrição: Formulário de cadastro/edição de produto
+Descricao: Formulario de cadastro/edicao de produto
 
 Componente: ProdutoForm
 
 Props:
-- modo: 'LAB' | 'PROD' (obrigatório)
-- produto: Produto | null (null = novo, objeto = edição)
-- onSuccess: () => void (callback após salvar)
+- modo: 'LAB' | 'PROD' (obrigatorio)
+- produto: Produto | null (null = novo, objeto = edicao)
+- onSuccess: () => void (callback apos salvar)
 
 Estado:
 - Form state via shadcn/ui Form component
@@ -337,22 +334,22 @@ Estado:
 
 Campos (se modo === 'LAB'):
 - Nome: Input text (required, min 3 chars)
-- Preço USD: Input number (required, > 0, step 0.01)
-- Cotação: Input number (required, > 0, step 0.01)
-  - Botão "Buscar Cotação" disabled (API vem depois)
+- Preco USD: Input number (required, > 0, step 0.01)
+- Cotacao: Input number (required, > 0, step 0.01)
+  - Botao "Buscar Cotacao" disabled (API vem depois)
 - Frete Total BRL: Input number (required, >= 0, step 0.01)
 - Fornecedor: Input text (opcional)
 
 Preview em tempo real (se modo === 'LAB'):
-- Custo Unitário: calcularCustoUnitario(precoUSD, cotacao, freteTotal, 1)
+- Custo Unitario: calcularCustoUnitario(precoUSD, cotacao, freteTotal, 1)
 - Exibir em badge: "Custo Unit.: R$ XX,XX"
-- Usar função de @src/lib/calculators.ts (criada no Prompt 1.5)
+- Usar funcao de @src/lib/calculators.ts (criada no Prompt 1.5)
 
 Submit:
 - Validar via validarProdutoLab de @src/lib/validators.ts
-- Se erros: mostrar em toast vermelho, não enviar
-- Se válido:
-  - Se produto (edição): PUT /api/produtos/[id]?modo=LAB body={dados}
+- Se erros: mostrar em toast vermelho, nao enviar
+- Se valido:
+  - Se produto (edicao): PUT /api/produtos/[id]?modo=LAB body={dados}
   - Se novo: POST /api/produtos body={...dados, modo: 'LAB'}
 - Aguardar resposta
 - Toast sucesso: "Produto salvo!"
@@ -362,18 +359,18 @@ Submit:
 
 Arquivo: @src/components/ProdutoList.tsx
 
-Descrição: Lista de produtos em tabela
+Descricao: Lista de produtos em tabela
 
 Componente: ProdutoList
 
 Props:
-- modo: 'LAB' | 'PROD' (obrigatório)
-- produtos: Produto[] (obrigatório)
+- modo: 'LAB' | 'PROD' (obrigatorio)
+- produtos: Produto[] (obrigatorio)
 - loading: boolean (opcional, default false)
 - onEdit: (produto: Produto) => void (callback editar)
 - onDelete: (id: number) => void (callback deletar)
 
-Renderização:
+Renderizacao:
 
 Se loading === true:
 - <LoadingSpinner /> de @src/components/LoadingSpinner.tsx (criado no Prompt 7.2)
@@ -384,30 +381,30 @@ Se produtos.length === 0 E loading === false:
     descricao="Clique em + para adicionar seu primeiro produto"
   />
 
-Caso contrário:
+Caso contrario:
 - <Table> do shadcn/ui
 
 Colunas (se modo === 'LAB'):
 - Nome: produto.nome
-- Preço USD: "$ XX.XX" (2 decimais)
-- Cotação: "R$ X,XX" (2 decimais)
+- Preco USD: "$ XX.XX" (2 decimais)
+- Cotacao: "R$ X,XX" (2 decimais)
 - Frete Total: "R$ XX,XX"
 - Custo Unit.: calcularCustoUnitario(...) - formato "R$ XX,XX"
 - Fornecedor: produto.fornecedor || "-"
-- Ações:
-  - Botão Editar (ícone Pencil) → onEdit(produto)
-  - Botão Deletar (ícone Trash) → onDelete(produto.id)
+- Acoes:
+  - Botao Editar (icone Pencil) -> onEdit(produto)
+  - Botao Deletar (icone Trash) -> onDelete(produto.id)
 
 ---
 
 [ARQUIVOS ENVOLVIDOS]
 
 Criar:
-- @src/app/lab/produtos/page.tsx (página principal)
-- @src/components/ProdutoForm.tsx (formulário)
+- @src/app/lab/produtos/page.tsx (pagina principal)
+- @src/components/ProdutoForm.tsx (formulario)
 - @src/components/ProdutoList.tsx (lista)
 
-Usar (já existem):
+Usar (ja existem):
 - @src/lib/calculators.ts (Prompt 1.5) - calcularCustoUnitario
 - @src/lib/validators.ts (Prompt 1.5) - validarProdutoLab
 - @src/components/ui/* (Prompt 1.3) - shadcn components
@@ -415,95 +412,95 @@ Usar (já existem):
 
 ---
 
-[REGRAS DE NEGÓCIO]
+[REGRAS DE NEGOCIO]
 
-- Produtos LAB têm preço, cotação, frete (para simulação)
-- Custo unitário é calculado em tempo real: (precoUSD × cotacao + freteTotal) ÷ 1
+- Produtos LAB tem preco, cotacao, frete (para simulacao)
+- Custo unitario e calculado em tempo real: (precoUSD x cotacao + freteTotal) / 1
 - Arredondar para 2 casas decimais
 - Soft delete: produto vai para lixeira (deletedAt != NULL)
-- Validações:
+- Validacoes:
   - Nome: min 3 caracteres
-  - Preço USD: > 0
-  - Cotação: > 0
+  - Preco USD: > 0
+  - Cotacao: > 0
   - Frete Total: >= 0
 
 ---
 
-[NÃO IMPLEMENTE]
+[NAO IMPLEMENTE]
 
-❌ Botão "Exportar para PROD" (vem no Prompt 3.3)
-❌ Buscar cotação API (endpoint vem no Prompt 6.3)
-❌ Filtros ou busca (feature futura)
-❌ Ordenação customizada (apenas createdAt DESC da API)
-
----
-
-[VALIDAÇÕES ANTES DE EXECUTAR]
-
-□ API produtos existe (Prompt 2.2) - GET, POST, PUT, DELETE
-□ shadcn/ui instalado (Prompt 1.3) - Dialog, Table, Button, Input
-□ Calculators prontos (Prompt 1.5) - calcularCustoUnitario
-□ Validators prontos (Prompt 1.5) - validarProdutoLab
-□ Tipos definidos (Prompt 2.1) - Produto, ProdutoInput
+- Botao "Exportar para PROD" (vem no Prompt 3.3)
+- Buscar cotacao API (endpoint vem no Prompt 6.3)
+- Filtros ou busca (feature futura)
+- Ordenacao customizada (apenas createdAt DESC da API)
 
 ---
 
-[CRITÉRIOS DE ACEITE]
+[VALIDACOES ANTES DE EXECUTAR]
 
-- [ ] Página /lab/produtos renderiza sem erros
-- [ ] Botão "+ Novo Produto" abre modal
-- [ ] Formulário valida campos (erro se nome < 3 chars)
-- [ ] Preview de custo unitário atualiza em tempo real
+- [ ] API produtos existe (Prompt 2.2) - GET, POST, PUT, DELETE
+- [ ] shadcn/ui instalado (Prompt 1.3) - Dialog, Table, Button, Input
+- [ ] Calculators prontos (Prompt 1.5) - calcularCustoUnitario
+- [ ] Validators prontos (Prompt 1.5) - validarProdutoLab
+- [ ] Tipos definidos (Prompt 2.1) - Produto, ProdutoInput
+
+---
+
+[CRITERIOS DE ACEITE]
+
+- [ ] Pagina /lab/produtos renderiza sem erros
+- [ ] Botao "+ Novo Produto" abre modal
+- [ ] Formulario valida campos (erro se nome < 3 chars)
+- [ ] Preview de custo unitario atualiza em tempo real
 - [ ] Salvar novo produto: POST /api/produtos funciona
 - [ ] Lista mostra produtos cadastrados
-- [ ] Custo unitário na lista é calculado corretamente
-- [ ] Botão Editar abre modal com dados preenchidos
+- [ ] Custo unitario na lista e calculado corretamente
+- [ ] Botao Editar abre modal com dados preenchidos
 - [ ] Editar produto: PUT /api/produtos/[id] funciona
-- [ ] Botão Deletar mostra confirm dialog
+- [ ] Botao Deletar mostra confirm dialog
 - [ ] Deletar produto: soft delete funciona (vai para lixeira)
-- [ ] Toast de feedback aparece em todas ações
-- [ ] Loading state visível durante fetch
+- [ ] Toast de feedback aparece em todas acoes
+- [ ] Loading state visivel durante fetch
 - [ ] Empty state aparece se lista vazia
 
 Teste manual:
-1. Criar produto "Teste A" com preço $10, cotação 5.5, frete 100
-2. Verificar custo unitário: deve ser (10 × 5.5 + 100) ÷ 1 = R$ 155,00
-3. Editar produto, mudar preço para $20
-4. Verificar custo atualiza: (20 × 5.5 + 100) ÷ 1 = R$ 210,00
+1. Criar produto "Teste A" com preco $10, cotacao 5.5, frete 100
+2. Verificar custo unitario: deve ser (10 x 5.5 + 100) / 1 = R$ 155,00
+3. Editar produto, mudar preco para $20
+4. Verificar custo atualiza: (20 x 5.5 + 100) / 1 = R$ 210,00
 5. Deletar produto, verificar que sumiu da lista
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-✅ FIM DO PROMPT - VALIDE ANTES DE AVANÇAR PARA PRÓXIMO
+FIM DO PROMPT - VALIDE ANTES DE AVANCAR PARA PROXIMO
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
 ---
 
-🔴 CHECKLIST DE QUALIDADE DE CADA PROMPT:
+CHECKLIST DE QUALIDADE DE CADA PROMPT:
 
 Antes de gerar cada prompt, verificar:
 
-- [ ] TUDO dentro de uma única caixa copiável (━━━ início/fim)
+- [ ] TUDO dentro de uma unica caixa copiavel (linhas inicio/fim)
 - [ ] Caminhos de arquivo com @ (@src/app/page.tsx)
-- [ ] Dependências referenciadas: "função X de @path (criada no Prompt N.Y)"
-- [ ] Valores específicos: "taxaClassico: 11.0" (não "valor padrão")
-- [ ] Fórmulas completas: "lucro = receita - custo - taxa"
-- [ ] Validações detalhadas: "se X < 0 → erro 'mensagem'"
+- [ ] Dependencias referenciadas: "funcao X de @path (criada no Prompt N.Y)"
+- [ ] Valores especificos: "taxaClassico: 11.0" (nao "valor padrao")
+- [ ] Formulas completas: "lucro = receita - custo - taxa"
+- [ ] Validacoes detalhadas: "se X < 0 -> erro 'mensagem'"
 - [ ] Tipos de dados: "quantidade: integer > 0"
-- [ ] Sem "...", "etc", ou abreviações
-- [ ] Seção [ARQUIVOS ENVOLVIDOS] completa
-- [ ] Seção [REGRAS DE NEGÓCIO] com fórmulas
-- [ ] Seção [NÃO IMPLEMENTE] previne feature creep
-- [ ] Seção [VALIDAÇÕES ANTES DE EXECUTAR] lista deps
-- [ ] Seção [CRITÉRIOS DE ACEITE] tem teste manual
+- [ ] Sem "...", "etc", ou abreviacoes
+- [ ] Secao [ARQUIVOS ENVOLVIDOS] completa
+- [ ] Secao [REGRAS DE NEGOCIO] com formulas
+- [ ] Secao [NAO IMPLEMENTE] previne feature creep
+- [ ] Secao [VALIDACOES ANTES DE EXECUTAR] lista deps
+- [ ] Secao [CRITERIOS DE ACEITE] tem teste manual
 
 ---
 
 IMPORTANTE:
 
-- Cada prompt é INDEPENDENTE (pode ser executado sozinho)
-- IA do Cursor deve conseguir implementar olhando APENAS o que está na caixa
-- Zero fricção: copiar → colar → executar
+- Cada prompt e INDEPENDENTE (pode ser executado sozinho)
+- IA do Cursor deve conseguir implementar olhando APENAS o que esta na caixa
+- Zero friccao: copiar -> colar -> executar
 - Zero ambiguidade: tudo especificado
 
 GERE O ARTIFACT seguindo estas regras rigorosamente.
