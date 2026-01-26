@@ -1,4 +1,4 @@
-# MP-01 - GERAR ESCOPO (PARTE 1)
+# ESC01 - GERAR ESCOPO (PARTE 1)
 
 **QUANDO USAR:**
 1. Apos completar MP-00 (Descoberta Guiada completa)

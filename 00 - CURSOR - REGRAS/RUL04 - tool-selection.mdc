@@ -1,0 +1,444 @@
+---
+alwaysApply: true
+description: Dialogue about tool/service/framework choices using scope criteria including cloud compatibility
+---
+
+# Tool Selection Rules
+
+## Core Principle
+
+Before suggesting any **tool, service, or framework**, evaluate it against scope criteria and present alternatives when appropriate.
+
+**NOVO:** Sempre verificar compatibilidade com deploy target (cloud vs local).
+
+## Step 0: Check Deploy Target (NOVO - FAZER PRIMEIRO)
+
+ANTES de qualquer analise, ler escopo.md:
+- Secao 2 -> Infraestrutura -> Deploy
+
+```
+SE deploy = "railway" OU "vercel" OU "render" OU "fly.io":
+  -> CLOUD = true
+  -> Aplicar filtro de compatibilidade cloud
+  -> Rejeitar ferramentas incompativeis
+
+SE deploy = "local" OU "docker" OU "vps":
+  -> CLOUD = false
+  -> Todas ferramentas disponiveis
+```
+
+### Cloud Compatibility Matrix
+
+```
+FERRAMENTA              | LOCAL | RAILWAY | VERCEL | RENDER
+------------------------|-------|---------|--------|--------
+SQLite (arquivo)        |  OK   |   NAO   |  NAO   |  NAO
+PostgreSQL              |  OK   |   OK    |  OK    |  OK
+MongoDB Atlas           |  OK   |   OK    |  OK    |  OK
+Turso (LibSQL)          |  OK   |   OK    |  OK    |  OK
+Uploads locais          |  OK   |   NAO   |  NAO   |  NAO
+Cloudinary              |  OK   |   OK    |  OK    |  OK
+S3/R2                   |  OK   |   OK    |  OK    |  OK
+Sessions em memoria     |  OK   |   NAO   |  NAO   |  NAO
+Redis                   |  OK   |   OK    |  OK    |  OK
+JWT stateless           |  OK   |   OK    |  OK    |  OK
+CRON setInterval        |  OK   |   NAO   |  NAO   |  NAO
+CRON nativo plataforma  |  N/A  |   OK    |  OK*   |  OK
+bcrypt (nativo)         |  OK   |   LENTO |  LENTO |  LENTO
+bcryptjs (JS puro)      |  OK   |   OK    |  OK    |  OK
+
+* Vercel CRON: free tier = 1x/dia maximo
+```
+
+## Step 1: Check Scope
+
+Is the tool in `escopo.md` **"Ferramentas Pre-Aprovadas"** list?
+
+**YES** -> Use it directly, mention why:
+```
+"Usando Prisma (pre-aprovado: 100% automacao, alto dominio IA)"
+```
+
+**NO** -> Continue to Step 2
+
+## Step 2: Evaluate Using Scope Criteria
+
+Evaluate against `escopo.md` Section 2 criteria:
+
+### Automacao (Automation)
+- **100%** -> Everything via code/CLI, zero manual steps
+- **80-99%** -> 1-2 simple manual steps acceptable
+- **60-79%** -> Some GUI required for configs
+- **< 60%** -> Multiple manual steps required (REJEITAR)
+
+### Dominio IA (AI Knowledge)
+- **Alto** -> Deep knowledge, can generate complete code
+- **Medio** -> Basic knowledge, may need docs
+- **Baixo** -> Limited knowledge, risky implementation (REJEITAR)
+
+### Setup (Complexity)
+- **Simples** -> 1-3 commands to get running
+- **Moderado** -> 4-8 commands or external account
+- **Complexo** -> >10 steps or multiple external services (REJEITAR)
+
+### Cloud Compatibility (NOVO)
+- **Full** -> Funciona em qualquer ambiente
+- **Partial** -> Funciona mas com limitacoes/workarounds
+- **None** -> NAO funciona em cloud (REJEITAR se deploy = cloud)
+
+## Step 3: Decision Tree
+
+### Score: All Green + Cloud Compatible
+-> Use directly, mention scores briefly
+
+### Score: Mix of Green and Yellow
+-> Present 2-3 alternatives with comparison
+-> Ask user to choose
+
+### Score: Any Red OR Cloud Incompatible
+-> DO NOT suggest this tool
+-> Present 2-3 better alternatives
+-> Explain why original doesn't meet criteria
+
+## Step 4: Presentation Format
+
+When presenting alternatives:
+
+```
+Analise de [Categoria - ex: Database]
+
+Preciso escolher [tipo de ferramenta] para [proposito do projeto].
+Deploy target: [Railway/Vercel/Local] <- SEMPRE mencionar
+
+---
+
+Opcao A: [Nome - ex: PostgreSQL + Prisma]
+Scores:
+  - Automacao: 100% (schema via Prisma, migrations automaticas)
+  - Dominio IA: Alto (conheco profundamente)
+  - Setup: 3 comandos (docker + prisma init + generate)
+  - Cloud: FULL (funciona em Railway/Vercel/qualquer)
+
+Pros:
+  - Escalavel, producao-ready
+  - Dados persistem em cloud
+  - Free tier disponivel (Railway 500MB, Neon 512MB)
+
+Contras:
+  - Requer conexao com internet
+  - Setup inicial um pouco mais complexo
+
+Melhor para: Projetos cloud, producao, multiuser
+
+---
+
+Opcao B: [Nome - ex: SQLite + Prisma]
+Scores:
+  - Automacao: 100% (schema via Prisma)
+  - Dominio IA: Alto
+  - Setup: 2 comandos (prisma init + generate)
+  - Cloud: NONE (dados perdidos a cada deploy)
+
+Pros:
+  - Local-first, funciona offline
+  - Zero configuracao de servidor
+  - Arquivo unico, facil backup
+
+Contras:
+  - NAO FUNCIONA em Railway/Vercel (filesystem efemero)
+  - Nao ideal para multiuser
+
+Melhor para: Projetos LOCAL ONLY, prototipagem
+
+---
+
+Opcao C: [Nome - ex: Turso (LibSQL)]
+Scores:
+  - Automacao: 100% (schema via Drizzle ou Prisma)
+  - Dominio IA: Medio (mais novo, menos docs)
+  - Setup: 4 comandos (criar conta + setup)
+  - Cloud: FULL (e um servico cloud)
+
+Pros:
+  - SQLite-compativel
+  - Funciona em qualquer deploy
+  - Free tier generoso
+
+Contras:
+  - Requer criar conta externa
+  - Menos maduro que PostgreSQL
+
+Melhor para: Quem quer SQLite syntax mas deploy cloud
+
+---
+
+RECOMENDACAO para seu caso ([Railway/Vercel]):
+-> Opcao A (PostgreSQL) ou Opcao C (Turso)
+-> Opcao B (SQLite) NAO FUNCIONA no seu deploy
+
+Qual opcao prefere? (A / B / C)
+```
+
+## Step 5: After User Decides
+
+Proceed with chosen tool without further questions about it.
+
+**EXCECAO:** Se usuario escolher ferramenta incompativel com cloud:
+-> Alertar novamente sobre consequencias
+-> Pedir confirmacao explicita
+-> Se confirmar, prosseguir (usuario assume risco)
+
+## What NEVER to Do
+
+- Suggest tools requiring manual GUI setup (without warning)
+- Use tools with "Baixo" (Low) AI Domain score
+- Decide unilaterally when multiple good options exist
+- Hide trade-offs or present biased comparison
+- Suggest tools just because "popular" without evaluating criteria
+- Ignore escopo.md pre-approved list
+- **NOVO:** Sugerir ferramentas cloud-incompativeis para deploy cloud sem alertar
+
+## What ALWAYS to Do
+
+- **NOVO:** Verificar deploy target ANTES de qualquer sugestao
+- Check pre-approved list first
+- Evaluate using scope criteria (Automacao, Dominio IA, Setup, Cloud)
+- Be transparent about limitations
+- Present objective pros/cons
+- Let user make final decision when options exist
+- Explain scores briefly (why 100% automation, etc)
+- Provide "Melhor para" guidance for each option
+- **NOVO:** Incluir Cloud Compatibility em toda analise
+
+## Common Scenarios
+
+### Scenario 1: Pre-Approved Tool
+
+```
+User needs ORM for PostgreSQL database
+
+AI: "Usando Prisma com PostgreSQL (pre-aprovado).
+Scores: 100% automacao, Alto dominio IA, 3 comandos setup, Cloud FULL"
+
+[No need to present alternatives]
+```
+
+### Scenario 2: Multiple Good Options
+
+```
+User needs state management, not specified in scope
+
+AI: [Presents Zustand vs Context API vs Jotai analysis]
+AI: "Qual opcao prefere?"
+
+[Wait for user choice]
+```
+
+### Scenario 3: Tool Doesn't Meet Criteria
+
+```
+User asks about PocketBase
+
+AI: "Detectei problema com PocketBase:
+Scores:
+  - Automacao: 40% (collections/campos manuais via GUI)
+  - Dominio IA: Medio
+  - Setup: Simples
+  - Cloud: Partial (requer VPS, nao funciona em serverless)
+
+Nao recomendo: baixa automacao + problemas cloud.
+
+Alternativas que atendem criterios:
+[Present PostgreSQL+Prisma vs Supabase]"
+```
+
+### Scenario 4: Cloud Incompatible Choice (NOVO)
+
+```
+User: "Quero usar SQLite, deploy no Railway"
+
+AI: "CONFLITO DETECTADO:
+
+Voce escolheu: SQLite
+Deploy: Railway
+
+Problema: Railway tem filesystem efemero.
+SQLite salva dados em arquivo local.
+A cada deploy, arquivo e DELETADO = dados PERDIDOS.
+
+Isso NAO e bug, e comportamento normal de plataformas cloud.
+
+OPCOES:
+
+A) Mudar database para PostgreSQL
+   - Railway tem PostgreSQL gratuito (500MB)
+   - Prisma funciona identico
+   - Dados persistem
+
+B) Mudar database para Turso
+   - SQLite-compativel na cloud
+   - Free tier generoso
+   - Requer criar conta
+
+C) Mudar deploy para Local
+   - Manter SQLite
+   - Rodar no seu computador
+   - Nao fica online 24/7
+
+D) Continuar com SQLite + Railway (NAO RECOMENDADO)
+   - Dados SERAO perdidos em cada deploy
+   - So faz sentido para demos/testes
+
+Qual opcao? (A/B/C/D)"
+```
+
+### Scenario 5: Uploads + Cloud (NOVO)
+
+```
+User: "Adicionar upload de imagens, app no Vercel"
+
+AI: "ALERTA: Upload + Vercel
+
+Vercel tem filesystem EFEMERO.
+Se voce salvar imagens em /public/uploads:
+- Imagens funcionam ATE o proximo deploy
+- Depois do deploy, TODAS sao deletadas
+
+OPCOES:
+
+A) Cloudinary (RECOMENDADO)
+   - Free: 25GB storage
+   - Upload via API
+   - URLs permanentes
+   - Transformacoes inclusas
+
+B) Vercel Blob
+   - Integrado com Vercel
+   - Pago (apos free tier)
+
+C) AWS S3 / Cloudflare R2
+   - Mais controle
+   - Mais complexo
+   - R2: sem egress fees
+
+Qual opcao? (A/B/C)"
+```
+
+### Scenario 6: User Specifies Unknown Tool
+
+```
+Escopo mentions [tech X] that AI doesn't know well
+
+AI: "Detectei [tech X] no escopo.
+Meu conhecimento: Baixo
+
+Aviso: Posso ter dificuldades implementando [tech X].
+
+Alternativas que domino:
+[Present 2-3 alternatives AI knows well]
+
+Prefere:
+A) Continuar com [tech X] (riscos: implementacao incompleta)
+B) Usar alternativa que conheco melhor
+C) Voce fornece mais detalhes sobre [tech X]
+
+Escolha A/B/C"
+```
+
+## Integration with Other Rules
+
+- **Regra-Dependencies.mdc**: This = tools/services, That = libraries
+- **Regra-Ask-First.mdc**: This = WHICH tool, That = HOW to use
+
+## Examples by Category
+
+### Database/ORM
+
+**Pre-approved:** PostgreSQL+Prisma, SQLite+Prisma (LOCAL ONLY)
+**Present alternatives:** If user asks for MySQL, MongoDB, Supabase
+
+**Cloud deploy?**
+- Railway/Vercel/Render: PostgreSQL, Turso, PlanetScale, MongoDB Atlas
+- Local only: SQLite OK
+
+### Backend Framework
+
+**Pre-approved:** Next.js API Routes, Express, Fastify
+**Present alternatives:** If user asks for NestJS, Koa
+
+**Cloud deploy?**
+- Vercel: Next.js ideal (serverless native)
+- Railway: Qualquer framework OK
+
+### Frontend Framework
+
+**Pre-approved:** Next.js, React+Vite
+**Present alternatives:** If user asks for Vue, Angular, Svelte
+
+### Styling
+
+**Pre-approved:** Tailwind CSS, CSS Modules
+**Present alternatives:** If user asks for styled-components, emotion
+
+### UI Components
+
+**Pre-approved:** shadcn/ui, Radix UI
+**Present alternatives:** If user asks for Material-UI, Ant Design
+
+### File Storage (NOVO)
+
+**Cloud deploy:**
+- Cloudinary (imagens - RECOMENDADO)
+- AWS S3 / Cloudflare R2 (qualquer arquivo)
+- Vercel Blob (se ja usa Vercel)
+- Uploadthing (alternativa simples)
+
+**Local deploy:**
+- Filesystem local OK
+- /public/uploads funciona
+
+### Authentication (NOVO)
+
+**Cloud deploy:**
+- NextAuth/Auth.js (stateless sessions)
+- Clerk (managed)
+- JWT custom (stateless)
+- Lucia (adapters para varios DBs)
+
+**Evitar em cloud:**
+- Sessions em memoria (nao escala)
+- express-session sem store externo
+
+### CRON/Background Jobs (NOVO)
+
+**Railway:**
+- CRON nativo via railway.toml
+- Sintaxe: schedule = "0 9 * * *"
+
+**Vercel:**
+- Vercel CRON (Pro: ate 1/min, Free: 1/dia)
+- Alternativa: cron-job.org externo
+
+**Local:**
+- node-cron
+- setInterval (cuidado com memory leaks)
+
+## Remember
+
+**Before suggesting ANY tool:**
+1. Check deploy target (cloud vs local)
+2. Filter incompatible tools if cloud
+3. Check pre-approved list
+4. Evaluate criteria scores
+5. Present alternatives if needed
+6. Let user decide
+
+**Cloud = be extra careful about persistence!**
+- Database: precisa ser externo (PostgreSQL, Turso, etc)
+- Uploads: precisa ser cloud storage (Cloudinary, S3, etc)
+- Sessions: precisa ser stateless ou Redis
+- CRON: precisa usar solucao da plataforma
+
+**Transparency > Convenience**
+
+Better to discuss options upfront than implement wrong tool and have data loss in production.

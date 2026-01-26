@@ -1,4 +1,4 @@
-# MP-01 - GERAR ESCOPO (PARTE 2)
+# ESC02 - GERAR ESCOPO (PARTE 2)
 
 **QUANDO USAR:**
 1. Apos completar MP-01-Gerar-Escopo-Parte1.md
