@@ -1,14 +1,14 @@
 # DESC03: PERGUNTAS CONTEXTUAIS (UI, Dados, Identidade Visual)
 
 **QUANDO USAR:**
-1. Após completar MP-00-Parte1-Criticas.md
+1. Após completar DESC02 - Criticas.md
 2. Abra NOVO chat no Claude (context limpo)
-3. Anexe: Resumo Parte 0 + JSON Parte 1
+3. Anexe: Resumo DESC01 + JSON DESC02
 4. Cole este prompt
 
 **PRÉ-REQUISITOS:** 
-- Resumo de contexto da Parte 0
-- JSON de decisões técnicas da Parte 1
+- Resumo de contexto do DESC01
+- JSON de decisões técnicas do DESC02
 
 ---
 
@@ -17,11 +17,11 @@ Você é uma IA especializada em design de interfaces e experiência de usuário
 
 Recebi o seguinte contexto do projeto:
 
-[COLE AQUI O RESUMO DA PARTE 0]
+[COLE AQUI O RESUMO DO DESC01]
 
 E as decisões técnicas:
 
-[COLE AQUI O JSON DA PARTE 1]
+[COLE AQUI O JSON DO DESC02]
 
 Agora preciso entender a INTERFACE, DADOS e IDENTIDADE VISUAL do sistema.
 
@@ -44,7 +44,7 @@ Estas perguntas vão definir:
 - Quais relatórios gerar
 - Identidade visual (cores, logo)
 
-Vou fazer 6 grupos de perguntas. Responda o que souber, posso sugerir com base no seu contexto.
+Vou fazer 6 grupos de perguntas (o grupo 3 tem sub-perguntas sobre dados). Responda o que souber, posso sugerir com base no seu contexto.
 """
 
 ---
@@ -84,7 +84,7 @@ Formato sugerido:
 - **Tela 2 (Nome):** O que faz aqui? Ex: "Ver lista de vendas"
 - **Tela 3 (Nome):** O que faz aqui? Ex: "Gerar relatórios"
 
-Baseado no seu contexto [mencionar contexto da Parte 0], imagino que precisa de:
+Baseado no seu contexto [mencionar contexto do DESC01], imagino que precisa de:
 [IA sugere 3-5 telas baseadas na história]
 
 Concorda com estas? Quer adicionar, remover ou modificar alguma?
@@ -92,28 +92,72 @@ Concorda com estas? Quer adicionar, remover ou modificar alguma?
 
 ---
 
-### 4. GRUPO 3 - DADOS MANUAIS
+### 4. GRUPO 3 - DADOS E ENTIDADES
 
 """
-**3. Dados que Usuário vai Cadastrar**
+**3. Dados do Sistema**
 
-Além de arquivos (que já discutimos), quais INFORMAÇÕES o usuário vai 
-DIGITAR manualmente no sistema?
+Vou precisar entender TODOS os tipos de dados do sistema. 
+Isso inclui dados digitados pelo usuário E dados que vêm de fora.
+
+**3a. Dados que o usuário vai DIGITAR manualmente:**
 
 Para cada tipo de dado, liste os campos principais:
 
 Exemplo:
 - **Produto:** nome, preço, estoque, fornecedor
 - **Cliente:** nome, email, telefone, endereço
-- **Venda:** data, produto, quantidade, desconto
 
 Liste os seus:
 - **[Entidade 1]:** [campos]
 - **[Entidade 2]:** [campos]
-- **[Entidade 3]:** [campos]
 
-Se não souber todos os campos agora, liste apenas as entidades principais 
-(ex: "Produto, Cliente, Venda") e definimos campos depois.
+Se não souber todos os campos agora, liste apenas as entidades principais.
+
+---
+
+**3b. Dados que vêm de SISTEMAS EXTERNOS:**
+
+Se o sistema integra com APIs/serviços externos (mencionado no DESC02):
+
+- Que dados vêm do sistema externo?
+- Em que formato chegam? (JSON, XML, CSV, etc)
+- Algum campo vem em formato especial? (ex: datas em UTC, valores em centavos)
+- Algum campo pode vir VAZIO ou inconsistente às vezes?
+
+Exemplo:
+- "Da API do vCenter vêm eventos com campos: tipo, VM, usuário, data"
+- "O campo detail_before às vezes vem vazio"
+- "Datas vêm em UTC, preciso converter para horário local"
+
+---
+
+**3c. Campos especiais:**
+
+Alguma entidade tem campos que armazenam dados complexos?
+- Campos JSON (guardam objeto inteiro, ex: detail_before, configurações)
+- Campos de controle (is_active, is_primary, is_admin)
+- Campos criptografados (senhas, tokens)
+- Campos calculados (total = preço x quantidade)
+- Campos enum (status: ativo/inativo/pendente, tipo: A/B/C)
+
+Exemplo:
+- "Evento tem campo raw_data que guarda o JSON inteiro do evento original"
+- "vCenter tem campo encrypted_password"
+- "Evento tem campo event_type que é enum (DiskExpand, PowerOn, etc)"
+
+---
+
+**3d. Relacionamentos entre entidades:**
+
+Quais entidades se conectam com quais?
+
+Exemplo:
+- "Venda pertence a um Cliente (1 cliente tem N vendas)"
+- "Evento pertence a um vCenter (1 vCenter tem N eventos)"
+
+Liste os seus:
+- [Entidade A] → [Entidade B]: [tipo de relação]
 """
 
 ---
@@ -210,7 +254,7 @@ Exemplo (sistema de estoque):
 Descreva o SEU fluxo principal:
 [usuário descreve]
 
-Se não tiver certeza, descreva o cenário que você imaginou na Parte 0 
+Se não tiver certeza, descreva o cenário que você imaginou no DESC01 
 quando disse "dia perfeito usando a ferramenta".
 """
 
@@ -266,7 +310,7 @@ Exemplos de sugestões:
 
 JSON ATUALIZADO:
 
-Vou adicionar estas informações ao JSON da Parte 1:
+Vou adicionar estas informações ao JSON do DESC02:
 
 ```json
 {
@@ -295,11 +339,26 @@ Vou adicionar estas informações ao JSON da Parte 1:
     "entidades": [
       {
         "nome": "[Produto]",
-        "campos": ["nome", "preco", "estoque"]
-      },
+        "campos": ["nome", "preco", "estoque"],
+        "campos_especiais": {
+          "json_blobs": [],
+          "criptografados": [],
+          "enums": ["status (ativo/inativo)"],
+          "flags": ["is_active"]
+        },
+        "origem": "manual",
+        "relacionamentos": [
+          {"com": "[Categoria]", "tipo": "many-to-one"}
+        ]
+      }
+    ],
+    "dados_externos": [
       {
-        "nome": "[Cliente]",
-        "campos": ["nome", "email", "telefone"]
+        "origem": "[nome da API/serviço]",
+        "formato": "[JSON/XML/CSV]",
+        "campos_recebidos": ["campo1", "campo2"],
+        "campos_instáveis": ["campo que pode vir vazio"],
+        "observacoes": "[ex: datas em UTC, IDs com prefixo]"
       }
     ]
   },
@@ -339,14 +398,14 @@ Vou adicionar estas informações ao JSON da Parte 1:
 
 PRÓXIMO PASSO:
 
-Salve este JSON COMPLETO (com tudo das Partes 1 e 2).
+Salve este JSON COMPLETO (com tudo do DESC02 + DESC03).
 
 Depois, abra um NOVO chat no Claude e cole o prompt:
-**MP-00-Parte3-Conflitos-e-Roadmap.md**
+**DESC04 - Conflitos-e-Roadmap.md**
 
 Anexe:
-1. Resumo de contexto da Parte 0
-2. JSON completo (Partes 1 + 2)
+1. Resumo de contexto do DESC01
+2. JSON completo (DESC02 + DESC03)
 
 Lá vamos detectar conflitos técnicos e gerar o roadmap pós-MVP.
 """
@@ -393,11 +452,13 @@ Concorda? Quer ajustar alguma cor?
 Após executar este prompt, você deve ter:
 - Dashboard descrito
 - Telas principais listadas
-- Entidades de dados mapeadas
+- Entidades de dados mapeadas (com campos especiais, enums, flags)
+- Dados externos documentados (formato, campos instáveis)
+- Relacionamentos entre entidades definidos
 - Relatórios definidos (ou "não precisa")
 - Identidade visual decidida
 - Workflow principal descrito
-- JSON completo (Parte 1 + Parte 2)
+- JSON completo (DESC02 + DESC03)
 
 Se algo ficou vago, peça para IA sugerir baseado no contexto.
 ```

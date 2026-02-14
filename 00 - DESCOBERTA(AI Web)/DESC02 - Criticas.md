@@ -1,12 +1,12 @@
 # DESC02: PERGUNTAS TÉCNICAS CRÍTICAS
 
 **QUANDO USAR:**
-1. Após completar MP-00-Parte0-Historia.md
+1. Após completar DESC01 - Historia.md
 2. Abra NOVO chat no Claude (context limpo)
-3. Anexe o resumo de contexto da Parte 0
+3. Anexe o resumo de contexto do DESC01
 4. Cole este prompt
 
-**PRÉ-REQUISITO:** Resumo de contexto da Parte 0
+**PRÉ-REQUISITO:** Resumo de contexto do DESC01
 
 ---
 
@@ -15,7 +15,7 @@ Você é uma IA especializada em arquitetura de software.
 
 Recebi o seguinte contexto do projeto:
 
-[COLE AQUI O RESUMO DE CONTEXTO DA PARTE 0]
+[COLE AQUI O RESUMO DE CONTEXTO DO DESC01]
 
 Agora preciso fazer perguntas TÉCNICAS CRÍTICAS para definir a arquitetura do sistema.
 
@@ -38,14 +38,14 @@ Estas são perguntas CRÍTICAS - suas respostas vão determinar:
 - Que frameworks escolher
 - Quais limitações técnicas existem
 
-Vou fazer 8 perguntas. Pode responder "não sei" - vou sugerir a melhor opção baseada no seu contexto.
+Vou fazer 11 perguntas. Pode responder "não sei" - vou sugerir a melhor opção baseada no seu contexto.
 """
 
 ---
 
-### 2. FAZER AS 8 PERGUNTAS CRÍTICAS
+### 2. FAZER AS 11 PERGUNTAS CRÍTICAS
 
-**IMPORTANTE:** Contextualize cada pergunta baseado na história da Parte 0.
+**IMPORTANTE:** Contextualize cada pergunta baseado na história do DESC01.
 
 **Pergunta 1 - Database:**
 """
@@ -102,9 +102,41 @@ Responda a, b, c.
 
 ---
 
-**Pergunta 3 - Upload de Arquivos:**
+**Pergunta 3 - SDKs e Dependências de Linguagem:**
 """
-**3. Upload de Arquivos**
+**3. SDKs ou Bibliotecas Obrigatórias**
+
+Baseado em [mencionar integrações/sistemas externos da história]:
+
+Existe alguma biblioteca ou SDK que OBRIGA usar uma linguagem específica?
+
+Exemplos:
+- pyvmomi (VMware) -> só funciona em Python
+- Sharp (imagens) -> só funciona em Node.js
+- SDK oficial de algum serviço que só tem em Java/C#/etc
+
+a) Tem alguma dependência que obriga linguagem?
+   - Sim: [especificar biblioteca e linguagem obrigatória]
+   - Não, nenhuma restrição
+   - Não sei
+
+b) Se SIM, já usou esta biblioteca antes?
+   - Sim, já tenho experiência
+   - Não, mas li a documentação
+   - Não, vou precisar de ajuda
+
+Responda a, b (pule b se respondeu NÃO em a).
+
+IMPORTANTE PARA A IA: Se o usuário indicar SDK que obriga linguagem, 
+isso DEFINE o backend. Não sugira framework de outra linguagem.
+Ex: pyvmomi = Python → sugerir FastAPI/Flask, NUNCA Next.js/Express.
+"""
+
+---
+
+**Pergunta 4 - Upload de Arquivos:**
+"""
+**4. Upload de Arquivos**
 
 Baseado em [mencionar se a história indicou necessidade de arquivos]:
 
@@ -129,9 +161,9 @@ Responda a, b, c (pule b e c se respondeu NÃO em a).
 
 ---
 
-**Pergunta 4 - Automação (CRON Jobs):**
+**Pergunta 5 - Automação (CRON Jobs):**
 """
-**4. Tarefas Automáticas**
+**5. Tarefas Automáticas**
 
 Baseado em [mencionar se detectou necessidade de automação na história]:
 
@@ -156,9 +188,9 @@ Responda a, b (pule b se respondeu NÃO em a).
 
 ---
 
-**Pergunta 5 - Autenticação/Login:**
+**Pergunta 6 - Autenticação/Login:**
 """
-**5. Login e Usuários**
+**6. Login e Usuários**
 
 Baseado em [mencionar se história indicou múltiplos usuários ou não]:
 
@@ -183,9 +215,9 @@ Responda a, b, c (pule b e c se respondeu NÃO em a).
 
 ---
 
-**Pergunta 6 - Integrações Externas:**
+**Pergunta 7 - Integrações Externas:**
 """
-**6. APIs e Integrações Externas**
+**7. APIs e Integrações Externas**
 
 Baseado em [mencionar se história revelou necessidade de integrações]:
 
@@ -214,9 +246,9 @@ Responda a, b (pule b se respondeu NÃO em a).
 
 ---
 
-**Pergunta 7 - Performance/Volume:**
+**Pergunta 8 - Performance/Volume:**
 """
-**7. Volume de Operações**
+**8. Volume de Operações**
 
 Baseado em [mencionar escala indicada na história]:
 
@@ -236,9 +268,9 @@ Responda a, b.
 
 ---
 
-**Pergunta 8 - Limitações Conhecidas:**
+**Pergunta 9 - Limitações Conhecidas:**
 """
-**8. Restrições e Limitações**
+**9. Restrições e Limitações**
 
 a) Tem alguma limitação técnica conhecida?
    - Sistema operacional específico (Windows only, Mac only, etc)
@@ -256,9 +288,72 @@ Responda a, b.
 
 ---
 
+**Pergunta 10 - Ambiente de Desenvolvimento vs Produção:**
+"""
+**10. Ambientes Dev e Produção**
+
+Desenvolvimento e produção vão rodar no mesmo ambiente?
+
+a) Ambiente de DESENVOLVIMENTO (onde você vai codar):
+   - Windows
+   - Mac
+   - Linux
+   - Docker no Windows/Mac
+   - Outro: [especificar]
+
+b) Ambiente de PRODUÇÃO (onde o sistema vai rodar de verdade):
+   - Mesmo que desenvolvimento
+   - Linux (VM ou servidor)
+   - Docker/Docker Compose
+   - Cloud (Railway, Vercel, AWS, etc)
+   - Outro: [especificar]
+
+c) Se dev e prod são DIFERENTES, tem algo que funciona 
+   diferente entre eles? (Ex: caminhos de arquivo, DNS, 
+   certificados SSL, variáveis de ambiente)
+   - Sim: [descrever]
+   - Não sei
+   - Não se aplica (mesmo ambiente)
+
+Responda a, b, c.
+
+IMPORTANTE PARA A IA: Se dev e prod são ambientes diferentes,
+incluir nos alertas_tecnicos. Ex: "Testar no Linux antes de 
+deploy - SSL e DNS podem divergir do Windows."
+"""
+
+---
+
+**Pergunta 11 - Pegadinhas do Domínio:**
+"""
+**11. Pegadinhas Técnicas do Domínio**
+
+Existe alguma pegadinha técnica no domínio deste projeto que eu deva saber?
+
+Coisas que SÓ QUEM TRABALHA NA ÁREA sabe e que podem causar problemas:
+
+Exemplos:
+- "A API do vCenter perde logs após 30 dias"
+- "O certificado SSL é auto-assinado, precisa de verify=False"
+- "Alguns campos vêm vazios às vezes, precisa de fallback"
+- "O endpoint muda entre versão 7 e 8 do produto"
+- "Dados chegam em fuso horário UTC mas usuário espera local"
+
+a) Tem pegadinhas técnicas que eu deva saber?
+   - Sim: [listar todas que lembrar - quanto mais melhor]
+   - Não, nenhuma que eu saiba
+   - Não sei
+
+IMPORTANTE PARA A IA: Estas pegadinhas são CRÍTICAS. Adicione 
+TODAS ao campo alertas_tecnicos do JSON. Mesmo que pareçam 
+óbvias para o usuário, a IA de desenvolvimento precisa saber.
+"""
+
+---
+
 ### 3. ANALISAR RESPOSTAS E GERAR JSON
 
-Após receber as 8 respostas, ANALISE e gere um JSON estruturado:
+Após receber as 11 respostas, ANALISE e gere um JSON estruturado:
 
 """
 ANÁLISE DAS RESPOSTAS TÉCNICAS:
@@ -300,6 +395,12 @@ JSON ESTRUTURADO:
     "contexto": "[resumo de 1 frase]"
   },
   "decisoes_tecnicas": {
+    "sdk_obrigatorio": {
+      "tem": true/false,
+      "biblioteca": "[nome da biblioteca]",
+      "linguagem_obrigatoria": "[python/node/java/etc]",
+      "impacto": "[define backend framework]"
+    },
     "database": {
       "tipo": "[sqlite/postgresql/mongodb/filesystem]",
       "volume_estimado": "[numero de registros]",
@@ -308,10 +409,15 @@ JSON ESTRUTURADO:
       "justificativa": "[motivo da escolha]"
     },
     "deploy": {
-      "tipo": "[local/railway/vercel/outro]",
+      "tipo": "[local/railway/vercel/docker-compose/outro]",
       "disponibilidade": "[24-7/best-effort]",
       "budget": "[free/paid]",
       "justificativa": "[motivo da escolha]"
+    },
+    "ambientes": {
+      "desenvolvimento": "[windows/mac/linux/docker]",
+      "producao": "[mesmo/linux/docker-compose/cloud]",
+      "diferencas": "[descrever se dev != prod, ex: SSL, DNS, paths]"
     },
     "uploads": {
       "necessario": true/false,
@@ -337,9 +443,11 @@ JSON ESTRUTURADO:
       "tempo_resposta": "[fast/normal/slow]"
     }
   },
-  "alertas": [
+  "alertas_tecnicos": [
     "[conflito detectado 1]",
-    "[conflito detectado 2]"
+    "[conflito detectado 2]",
+    "[pegadinha do dominio 1 - da pergunta 11]",
+    "[pegadinha do dominio 2 - da pergunta 11]"
   ]
 }
 ```
@@ -351,11 +459,11 @@ PRÓXIMO PASSO:
 Salve este JSON em um arquivo local.
 
 Depois, abra um NOVO chat no Claude e cole o prompt:
-**MP-00-Parte2-Contextuais.md**
+**DESC03 - Contextuais.md**
 
 Anexe:
-1. O resumo de contexto da Parte 0
-2. Este JSON da Parte 1
+1. O resumo de contexto do DESC01
+2. Este JSON do DESC02
 
 Isso vai permitir perguntas contextualizadas sobre UI, telas e workflows.
 """
@@ -416,11 +524,13 @@ ALERTA: Railway + arquivo uploads = problema (ephemeral filesystem)
 ## VALIDAÇÃO
 
 Após executar este prompt, você deve ter:
-- 8 perguntas respondidas
+- 11 perguntas respondidas
 - JSON estruturado gerado
 - Alertas de conflitos (se houver)
-- Tech stack sugerido
-- Direcionamento para Parte 2
+- Pegadinhas do domínio registradas
+- Tech stack sugerido (respeitando SDK obrigatório se houver)
+- Ambientes dev/prod documentados
+- Direcionamento para DESC03
 
 Se JSON está incompleto, peça para IA regenerar.
 ```

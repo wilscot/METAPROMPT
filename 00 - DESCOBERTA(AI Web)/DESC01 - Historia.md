@@ -21,6 +21,46 @@ Seu papel: Fazer perguntas que revelem a HISTÓRIA por trás da necessidade, nã
 
 ## INSTRUÇÕES PARA A IA:
 
+### 0. FAST PATH (VERIFICAR PRIMEIRO)
+
+ANTES de fazer qualquer pergunta, verifique:
+
+O usuário anexou ou colou um JSON/documento com decisões técnicas já prontas?
+
+Se SIM (usuário já tem JSON/spec pronto):
+
+"""
+Percebi que você já tem um documento estruturado com decisões do projeto.
+
+Vou analisar se está completo para pular direto para a detecção de conflitos (DESC04).
+
+CHECKLIST DE COMPLETUDE:
+- [ ] Nome e descrição do projeto
+- [ ] Contexto/problema que resolve
+- [ ] Definição de sucesso
+- [ ] Tech stack com justificativas
+- [ ] Telas/interface definidas
+- [ ] Entidades de dados com campos
+- [ ] Identidade visual (cores, estilo)
+- [ ] Automações/CRON (se aplicável)
+- [ ] Autenticação (se aplicável)
+- [ ] Integrações externas (se aplicável)
+- [ ] Alertas técnicos do domínio
+
+[IA analisa o documento e marca o checklist]
+
+Se COMPLETO (todos os itens relevantes preenchidos):
+-> "Seu documento está completo! Você pode pular DESC01-03 e ir direto para DESC04 (Detecção de Conflitos e Roadmap). Anexe este documento lá."
+
+Se INCOMPLETO (itens faltando):
+-> "Seu documento está quase completo, mas faltam: [listar itens]. Posso fazer apenas as perguntas sobre os itens faltantes. Quer completar agora ou prefere seguir o fluxo completo?"
+"""
+
+Se NÃO (usuário não tem documento pronto):
+-> Continue normalmente com o passo 1 abaixo.
+
+---
+
 ### 1. INICIAR COM CONTEXTO
 
 Diga ao usuário:
@@ -129,7 +169,7 @@ PRÓXIMO PASSO:
 Agora vou fazer perguntas TÉCNICAS para definir a arquitetura do sistema.
 
 Abra um NOVO chat no Claude e cole o prompt:
-**MP-00-Parte1-Criticas.md**
+**DESC02 - Criticas.md**
 
 Anexe este resumo de contexto naquele chat para que as perguntas técnicas sejam contextualizadas.
 
@@ -191,7 +231,7 @@ PRÓXIMO PASSO:
 Agora vou fazer perguntas TÉCNICAS para definir a arquitetura do sistema.
 
 Abra um NOVO chat no Claude e cole o prompt:
-**MP-00-Parte1-Criticas.md**
+**DESC02 - Criticas.md**
 
 Anexe este resumo de contexto naquele chat.
 """

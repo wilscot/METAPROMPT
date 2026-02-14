@@ -1,14 +1,14 @@
 # DESC04: DETECÇÃO DE CONFLITOS E ROADMAP
 
 **QUANDO USAR:**
-1. Após completar MP-00-Parte2-Contextuais.md
+1. Após completar DESC03 - Contextuais.md
 2. Abra NOVO chat no Claude (context limpo)
-3. Anexe: Resumo Parte 0 + JSON completo (Partes 1+2)
+3. Anexe: Resumo DESC01 + JSON completo (DESC02 + DESC03)
 4. Cole este prompt
 
 **PRÉ-REQUISITOS:**
-- Resumo de contexto da Parte 0
-- JSON completo com decisões técnicas (Parte 1) e interface (Parte 2)
+- Resumo de contexto do DESC01
+- JSON completo com decisões técnicas (DESC02) e interface (DESC03)
 
 **ESTE É O PROMPT FINAL DA DESCOBERTA GUIADA**
 
@@ -19,11 +19,11 @@ Você é uma IA especializada em arquitetura de software e planejamento de proje
 
 Recebi o seguinte contexto do projeto:
 
-[COLE AQUI O RESUMO DA PARTE 0]
+[COLE AQUI O RESUMO DO DESC01]
 
 E o JSON completo com todas as decisões:
 
-[COLE AQUI O JSON COMPLETO DAS PARTES 1 + 2]
+[COLE AQUI O JSON COMPLETO DO DESC02 + DESC03]
 
 Agora preciso:
 1. DETECTAR conflitos técnicos entre as decisões
@@ -320,20 +320,67 @@ Se algo estiver "null" ou vazio sem motivo, preencha agora.
 
 ---
 
-### 5. GERAR ROADMAP PÓS-MVP
+### 5. SEPARAR FASE 1 vs FASE 2 POR FEATURE
 
-Após JSON final estar completo:
+ANTES de gerar o roadmap, pergunte ao usuário:
+
+"""
+SEPARAÇÃO POR FEATURE: MVP vs PÓS-MVP
+
+Para cada feature do sistema, preciso saber o que é ESSENCIAL (Fase 1/MVP) 
+e o que pode ficar para DEPOIS (Fase 2+).
+
+Vou listar as features que identifiquei e preciso que você defina para cada uma:
+
+[Para cada feature identificada no JSON, perguntar:]
+
+**[Nome da Feature]:**
+- Fase 1 (MVP): [o que é essencial agora?]
+- Fase 2 (depois): [o que pode esperar?]
+- Muda completamente na Fase 2? [sim/não - ex: auth simples → LDAP]
+
+Exemplos:
+- **Autenticação:** Fase 1: sem login, confia na rede | Fase 2: LDAP/AD
+- **Relatórios:** Fase 1: exportação CSV básica | Fase 2: PDF + gráficos
+- **Coleta de dados:** Fase 1: manual | Fase 2: automática a cada 30min
+
+Pode responder "tudo na Fase 1" para features que não têm separação.
+"""
+
+**AGUARDAR resposta do usuário.**
+
+Após receber, ATUALIZAR o JSON incorporando fase1/fase2 em CADA feature:
+
+```json
+"features": {
+  "autenticacao": {
+    "fase1": "[escopo mínimo]",
+    "fase2": "[expansão futura]",
+    "muda_completamente": true/false
+  },
+  "relatorios": {
+    "fase1": "[escopo mínimo]",
+    "fase2": "[expansão futura]"
+  }
+}
+```
+
+---
+
+### 6. GERAR ROADMAP PÓS-MVP
+
+Após JSON final estar completo (com fase1/fase2 por feature):
 
 """
 ROADMAP DE DESENVOLVIMENTO
 
-Vou dividir o projeto em FASES:
+Vou dividir o projeto em FASES baseado na separação que você definiu:
 
 **MVP (Minimum Viable Product) - FASE 1**
-Objetivo: Validar a ideia com funcionalidades CORE
+Objetivo: Validar a ideia com funcionalidades CORE (tudo que foi marcado como "fase1")
 
 **Pós-MVP - FASES 2, 3, etc**
-Objetivo: Expandir após validação com usuários reais
+Objetivo: Expandir (tudo que foi marcado como "fase2" + features novas)
 
 ---
 
@@ -347,8 +394,8 @@ Objetivo: Expandir após validação com usuários reais
 - [ ] Database schema básico
 - [ ] Autenticação (se necessária)
 
-### Features Core (baseadas na história da Parte 0):
-[IA analisa contexto e lista 3-5 features ESSENCIAIS]
+### Features Core (baseadas no que o usuário marcou como "fase1"):
+[IA lista TODAS as features marcadas como fase1 pelo usuário]
 
 Exemplo (sistema de estoque):
 - [ ] CRUD Produtos (cadastrar, listar, editar, deletar)
@@ -380,8 +427,8 @@ Exemplo (sistema de estoque):
 - Feedback coletado e analisado
 - Bugs críticos do MVP corrigidos
 
-**Prioridade ALTA (baseado em feedback esperado):**
-[IA sugere 3-5 features de Fase 2]
+**Prioridade ALTA (features marcadas como "fase2" pelo usuário):**
+[IA lista TODAS as features marcadas como fase2]
 
 Exemplo:
 - [ ] Filtros avançados nas listas
@@ -466,7 +513,7 @@ RESUMO EXECUTIVO:
 
 ---
 
-### 6. GERAR PRÓXIMO PASSO
+### 7. GERAR PRÓXIMO PASSO
 
 """
 DESCOBERTA GUIADA COMPLETA!
@@ -491,14 +538,13 @@ SALVAR ARQUIVOS:
 PRÓXIMO PASSO:
 
 Abra um NOVO chat no Claude e cole o prompt:
-**MP-01-Gerar-Escopo.md**
+**ESC01 - Gerar-Escopo-Parte1.md**
 
 Anexe naquele chat:
 1. O JSON completo (decisoes-tecnicas.json)
 2. O roadmap (roadmap.md)
 
-MP-01 vai gerar o arquivo `escopo.md` completo, pronto para usar nos 
-Meta-Prompts de desenvolvimento (MP-02 a MP-06).
+ESC01 vai gerar o arquivo `escopo.md` (seções 1-4), depois ESC02 completa (seções 5-9).
 
 PARABÉNS! A descoberta guiada está concluída.
 """
@@ -574,5 +620,5 @@ Após executar este prompt, você deve ter:
 
 **Este é o FINAL da descoberta guiada.**
 
-**Próximo:** MP-01 gera escopo.md baseado neste JSON.
+**Próximo:** ESC01 gera escopo.md (seções 1-4) baseado neste JSON.
 ```
