@@ -13,9 +13,7 @@ Este guia cobre apenas a **FASE 2** do framework (Geração de Artifacts).
 Antes de usar estes Meta-Prompts, você DEVE ter:
 
 - ✅ **escopo.md** criado e validado (gerado na Fase 1)
-- ✅ **Cursor Rules** instaladas em `.cursor/rules/` (6 arquivos .mdc)
-  - ⚠️ **Importante:** Regras devem estar instaladas ANTES de começar a codar
-  - ✅ Podem ser instaladas a qualquer momento após ter escopo.md
+- ✅ **Cursor Rules** instaladas (gerenciadas em repositório separado)
 
 **Não tem escopo.md ainda?**
 1. Veja `FLUXO_COMPLETO.md` → Fase 1: Planejamento
@@ -212,13 +210,7 @@ Antes de usar estes Meta-Prompts, você DEVE ter:
 ```
 seu-projeto/
 ├── .cursor/
-│   └── rules/              ← 6 regras instaladas (ANTES de codar)
-│       ├── 00-universal-code-standards.mdc
-│       ├── 01-ask-first.mdc
-│       ├── 02-dependencies.mdc
-│       ├── 03-tool-selection.mdc
-│       ├── 04-file-size.mdc
-│       └── 05-external-database.mdc
+│   └── rules/              ← Cursor Rules (repositório separado)
 ├── escopo.md               ← Criado na Fase 1 (SEMPRE anexar)
 ├── src/                    ← MP-01 cria estrutura
 ├── package.json            ← MP-02 cria
@@ -233,7 +225,7 @@ seu-projeto/
 
 ### Antes de começar (Pré-requisitos):
 - [ ] escopo.md criado e validado
-- [ ] Regras Cursor instaladas (6 arquivos .mdc)
+- [ ] Cursor Rules instaladas (repositório separado)
 - [ ] escopo.md anexado no chat
 
 ### Fase 2: Geração de Artifacts:
@@ -255,7 +247,7 @@ seu-projeto/
 1. **SEMPRE anexe escopo.md** em todos os chats da Fase 2
 2. **Um prompt por vez** no Cursor (não copie tudo de uma vez)
 3. **Valide antes de avançar** (build, testes, sem erros)
-4. **Regras são só para Cursor** (não afetam geração na Web)
+4. **Cursor Rules** são gerenciadas em repositório separado
 5. **MP-05 gera em fases** (evita artifacts gigantes cortados)
 6. **Mesmo chat OK** para MP-01 a MP-05 (desde que escopo.md esteja anexado)
 
@@ -266,7 +258,7 @@ seu-projeto/
 - **Fluxo completo:** `FLUXO_COMPLETO.md` (raiz do projeto)
 - **Descoberta guiada:** `00 - DESCOBERTA(AI Web)/`
 - **Geração de escopo:** `01 - ESCOPO(AI Web)/`
-- **Regras Cursor:** `00 - CURSOR - REGRAS/COMANDO PARA NOVO PROJETO.md`
+- **Cursor Rules:** Gerenciadas em repositório separado
 
 ---
 
@@ -274,9 +266,6 @@ seu-projeto/
 
 **Q: Posso fazer MP-01 a MP-05 no mesmo chat?**  
 A: Sim! Desde que `escopo.md` esteja anexado em cada execução.
-
-**Q: Quando instalar as regras do Cursor?**  
-A: Pode ser a qualquer momento após ter `escopo.md`, mas **DEVE estar completo ANTES de começar a codar**.
 
 **Q: Quantos prompts o MP-05 gera?**  
 A: Depende do projeto. Típico: 9 a 28+ prompts. MP-05 agrupa tarefas relacionadas quando possível.

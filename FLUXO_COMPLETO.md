@@ -127,36 +127,6 @@ Framework para criar aplicações completas usando IA, desde a ideia inicial at�
 
 ---
 
-### Etapa 4: Instalar Regras Cursor ⚙️
-
-**Objetivo:** Preparar Cursor para desenvolvimento com qualidade.
-
-**Quando fazer:**
-- ✅ Pode ser feito a qualquer momento após ter `escopo.md`
-- ✅ **DEVE estar completo ANTES de começar a codar no Cursor**
-- ⚠️ Regras são só para Cursor, não afetam geração de artifacts na Web
-
-**Como fazer:**
-1. Abra `COMANDO PARA NOVO PROJETO.md` em `00 - CURSOR - REGRAS/`
-2. Copie os 6 arquivos `.mdc` para `[seu-projeto]/.cursor/rules/`
-3. Arquivos necessários:
-   - `00-universal-code-standards.mdc`
-   - `01-ask-first.mdc`
-   - `02-dependencies.mdc`
-   - `03-tool-selection.mdc`
-   - `04-file-size.mdc`
-   - `05-external-database.mdc`
-
-**Checkpoint:**
-```
-✅ Pasta .cursor/rules/ criada
-✅ 6 arquivos .mdc copiados
-✅ Verificação: ls .cursor/rules/ mostra 6 arquivos
-→ Regras instaladas, pode avançar para Fase 2
-```
-
----
-
 ## 🚀 FASE 2: GERAÇÃO DE ARTIFACTS (Claude Web)
 
 **Objetivo:** Gerar artifacts de implementação baseados no `escopo.md`.
@@ -327,9 +297,6 @@ Framework para criar aplicações completas usando IA, desde a ideia inicial at�
 │ Etapa 3: MP-01 Escopo (2 chats)                        │
 │   Chat 5: Parte 1 → escopo.md (1-4)                    │
 │   Chat 6: Parte 2 → escopo.md completo (5-9)            │
-│   ↓                                                     │
-│ Etapa 4: Instalar Regras Cursor                        │
-│   Copiar 6 arquivos .mdc → .cursor/rules/               │
 └─────────────────────────────────────────────────────────┘
                         ↓
 ┌─────────────────────────────────────────────────────────┐
@@ -348,7 +315,6 @@ Framework para criar aplicações completas usando IA, desde a ideia inicial at�
 │ Copiar artifacts → Cursor                               │
 │ Executar micro-prompts sequencialmente                 │
 │ Validar cada prompt antes de avançar                    │
-│ Regras do Cursor garantem qualidade                     │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -365,7 +331,6 @@ Framework para criar aplicações completas usando IA, desde a ideia inicial at�
 - [ ] MP-01 Parte 1: escopo.md (1-4) gerado
 - [ ] MP-01 Parte 2: escopo.md completo (5-9) gerado
 - [ ] escopo.md validado (tech stack completo, sem "?")
-- [ ] Regras Cursor instaladas (6 arquivos .mdc)
 
 ### Fase 2: Geração
 - [ ] MP-01: Artifact estrutura pastas gerado
@@ -389,36 +354,34 @@ Framework para criar aplicações completas usando IA, desde a ideia inicial at�
 1. **Sempre anexe `escopo.md`** em todos os chats da Fase 2
 2. **Um prompt por vez** no Cursor (não copie tudo de uma vez)
 3. **Valide antes de avançar** (build, testes, sem erros)
-4. **Regras são só para Cursor** (não afetam geração na Web)
-5. **MP-05 gera em fases** (evita artifacts gigantes cortados)
-6. **Chats separados = context limpo** (recomendado para MP-00 e MP-01 Escopo)
-7. **Mesmo chat OK** para MP-01 a MP-05 (desde que escopo.md esteja anexado)
+4. **MP-05 gera em fases** (evita artifacts gigantes cortados)
+5. **Chats separados = context limpo** (recomendado para MP-00 e MP-01 Escopo)
+6. **Mesmo chat OK** para MP-01 a MP-05 (desde que escopo.md esteja anexado)
+7. **Cursor Rules** são gerenciadas em repositório separado
 
 ---
 
 ## 📚 ARQUIVOS DE REFERÊNCIA
 
 **Descoberta Guiada:**
-- `00 - DESCOBERTA(AI Web)/MP-00-Parte0-Historia.md`
-- `00 - DESCOBERTA(AI Web)/MP-00-Parte1-Criticas.md`
-- `00 - DESCOBERTA(AI Web)/MP-00-Parte2-Contextuais.md`
-- `00 - DESCOBERTA(AI Web)/MP-00-Parte3-Conflitos-e-Roadmap.md`
+- `00 - DESCOBERTA(AI Web)/DESC01 - Historia.md`
+- `00 - DESCOBERTA(AI Web)/DESC02 - Criticas.md`
+- `00 - DESCOBERTA(AI Web)/DESC03 - Contextuais.md`
+- `00 - DESCOBERTA(AI Web)/DESC04 - Conflitos-e-Roadmap.md`
 
 **Geração de Escopo:**
-- `01 - ESCOPO(AI Web)/MP-01-Gerar-Escopo-Parte1.md`
-- `01 - ESCOPO(AI Web)/MP-01-Gerar-Escopo-Parte2.md`
-- `01 - ESCOPO(AI Web)/escopo-template.md`
+- `01 - ESCOPO(AI Web)/ESC01 - Gerar-Escopo-Parte1.md`
+- `01 - ESCOPO(AI Web)/ESC02 - Gerar-Escopo-Parte2.md`
 
 **Meta-Prompts de Desenvolvimento:**
-- `2 - META PROMPT/MP-01-Estrutura-de-Pastas.md`
-- `2 - META PROMPT/MP-02-Configuracoes.md`
-- `2 - META PROMPT/MP-03-Documentacao.md`
-- `2 - META PROMPT/MP-04-Estrutura-de-Codigo.md`
-- `2 - META PROMPT/MP-05-Micro-Prompts.md`
+- `2 - META PROMPT/MP01 - Estrutura-de-Pastas.md`
+- `2 - META PROMPT/MP02 - Configuracoes.md`
+- `2 - META PROMPT/MP03 - Documentacao.md`
+- `2 - META PROMPT/MP04 - Estrutura-de-Codigo.md`
+- `2 - META PROMPT/MP05 - Micro-Prompts.md`
 
-**Regras Cursor:**
-- `00 - CURSOR - REGRAS/COMANDO PARA NOVO PROJETO.md`
-- `00 - CURSOR - REGRAS/*.mdc` (6 arquivos)
+**Cursor Rules:**
+- Gerenciadas em repositório separado (não fazem parte deste projeto)
 
 ---
 
@@ -426,9 +389,6 @@ Framework para criar aplicações completas usando IA, desde a ideia inicial at�
 
 **Q: Posso fazer MP-01 a MP-05 no mesmo chat?**  
 A: Sim! Desde que `escopo.md` esteja anexado em cada execução.
-
-**Q: Quando instalar as regras do Cursor?**  
-A: Pode ser a qualquer momento após ter `escopo.md`, mas DEVE estar completo antes de começar a codar.
 
 **Q: Quantos prompts o MP-05 gera?**  
 A: Depende do projeto. Típico: 9 a 28+ prompts. MP-05 agrupa tarefas relacionadas quando possível.
