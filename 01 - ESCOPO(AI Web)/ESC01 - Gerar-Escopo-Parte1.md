@@ -1,7 +1,7 @@
 # ESC01 - GERAR ESCOPO (PARTE 1)
 
 **QUANDO USAR:**
-1. Apos completar MP-00 (Descoberta Guiada completa)
+1. Apos completar DESC01-04 (Descoberta Guiada completa)
 2. Ter em maos o JSON final da Parte 3
 3. Abra NOVO chat no Claude (context limpo)
 4. Anexe o JSON da descoberta
@@ -276,7 +276,7 @@ Conteudo gerado:
 PROXIMO PASSO:
 
 Abra um NOVO chat no Claude e cole o prompt:
-**MP-01-Gerar-Escopo-Parte2.md**
+**ESC02 - Gerar-Escopo-Parte2.md**
 
 Anexe:
 1. O JSON da descoberta (mesmo usado aqui)

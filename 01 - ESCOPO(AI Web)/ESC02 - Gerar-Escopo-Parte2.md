@@ -1,7 +1,7 @@
 # ESC02 - GERAR ESCOPO (PARTE 2)
 
 **QUANDO USAR:**
-1. Apos completar MP-01-Gerar-Escopo-Parte1.md
+1. Apos completar ESC01 - Gerar-Escopo-Parte1.md
 2. Ter o escopo.md com secoes 1-4 geradas
 3. Abra NOVO chat no Claude (context limpo)
 4. Anexe o JSON da descoberta + escopo.md da Parte 1
@@ -300,7 +300,7 @@ Apos as 9 secoes, adicionar:
 - [ ] Secao 8 (Roadmap) com fases futuras
 - [ ] Secao 9 (Alertas) com conflitos resolvidos
 
-**Se todos marcados -> Escopo pronto para MP-02!**
+**Se todos marcados -> Escopo pronto para os Meta-Prompts!**
 """
 
 ---
@@ -337,7 +337,10 @@ Por favor, revise o escopo.md gerado e confirme:
 4. O roadmap reflete suas prioridades?
 
 Se tudo estiver OK, salve o arquivo e avance para:
-**MP-02-Estrutura-de-Pastas.md**
+**MP01 - Estrutura-de-Pastas.md**
+
+Este e o primeiro Meta-Prompt de desenvolvimento. Execute na seguinte ordem:
+MP01 (Estrutura de Pastas) -> MP02 (Configuracoes) -> MP03 (Documentacao) -> MP04 (Estrutura de Codigo) -> MP05 (Micro-Prompts)
 
 Se precisar ajustar algo, me diga o que corrigir.
 """
