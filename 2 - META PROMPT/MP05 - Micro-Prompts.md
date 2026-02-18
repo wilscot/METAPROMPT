@@ -14,7 +14,7 @@
 
 6. **NAO copie tudo de uma vez!**
 
-7. Copie **UM prompt por vez** (cada um esta em caixa unica copiavel)
+7. Copie **UM prompt por vez** — cada prompt esta dentro de um code block com botao **"Copy"** no canto superior direito (clique para copiar o prompt inteiro)
 
 8. Cole no Cursor Chat
 
@@ -100,15 +100,25 @@ ANALISE DE IMPLEMENTACAO:
 
 REGRA CRITICA: FORMATO DE CADA PROMPT
 
-Cada prompt DEVE seguir este formato EXATO:
+Cada prompt DEVE seguir este formato EXATO.
+
+REGRA DO CODE BLOCK COPIAVEL: Todo o conteudo copiavel de CADA prompt (do separador ━━━ inicial ate o separador ━━━ final com "FIM DO PROMPT") DEVE estar envolvido em um code block (triple backticks) no artifact. Isso faz com que o Claude Web renderize um botao nativo "Copy" no canto superior direito do bloco. Os separadores ━━━ ficam DENTRO do code block. O titulo (## PHASE e ### Prompt) fica FORA do code block (serve como navegacao visual). Formato:
 
 ## PHASE [N]: [NOME DA FASE]
 
 ### Prompt [N.X]: [Titulo Descritivo]
 
+```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 COPIE DAQUI PARA BAIXO E COLE NO CURSOR (PROMPT COMPLETO)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[MODO CURSOR]
+🔵 MODO CURSOR: Cole no AGENT mode (execucao direta)
+OU
+🟡 MODO CURSOR: Cole no AGENT mode com PLAN ativado (revise antes de executar)
+
+(escolha UM dos dois acima conforme complexidade do prompt - ver regras abaixo)
 
 [PRE-REQUISITOS]
 Verificar antes de executar:
@@ -256,6 +266,9 @@ ALGO FALHOU? → Diga qual teste falhou e o que apareceu na tela
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 FIM DO PROMPT [N.X]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+(O code block fecha aqui — o botao "Copy" do Claude Web copia tudo de uma vez)
 
 **REGRAS PARA O RETORNO DA IA:**
 
@@ -314,6 +327,23 @@ REGRAS PARA O CONTEUDO DOS PROMPTS:
    - Usar linhas para dividir secoes
    - Usar --- para dividir arquivos
 
+7. **Campo [MODO CURSOR] obrigatorio:**
+   - Todo prompt DEVE ter o campo [MODO CURSOR] logo ANTES de [PRE-REQUISITOS]
+   - A escolha entre os dois modos segue estes criterios:
+   - **AGENT (execucao direta)** — usar quando:
+     - Prompt envolve 1-2 arquivos
+     - Tarefas de setup, instalacao, config, criacao de arquivo simples
+     - Logica trivial ou repetitiva (CRUD basico, componente isolado)
+     - Formato: 🔵 MODO CURSOR: Cole no AGENT mode (execucao direta)
+   - **AGENT com PLAN** — usar quando:
+     - Prompt envolve 3+ arquivos
+     - Logica de negocio complexa (formulas, validacoes cruzadas, fluxos multi-etapa)
+     - Multiplas dependencias entre componentes
+     - Integracoes com APIs externas ou servicos
+     - Modificacoes em arquivos existentes que requerem cuidado
+     - Formato: 🟡 MODO CURSOR: Cole no AGENT mode com PLAN ativado (revise antes de executar)
+   - Na duvida, use AGENT com PLAN (e mais seguro revisar antes)
+
 ---
 
 ESTRUTURA DO ARTIFACT:
@@ -340,9 +370,13 @@ ESTRUTURA DO ARTIFACT:
 
 ### Prompt 1.1: [Titulo]
 
+```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 COPIE DAQUI PARA BAIXO E COLE NO CURSOR (PROMPT COMPLETO)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[MODO CURSOR]
+🔵 ou 🟡 MODO CURSOR: (conforme complexidade)
 
 [PRE-REQUISITOS]
 [COMANDOS DE INSTALACAO]
@@ -356,12 +390,13 @@ COPIE DAQUI PARA BAIXO E COLE NO CURSOR (PROMPT COMPLETO)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 FIM DO PROMPT [1.1]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
 
 ---
 
 ### Prompt 1.2: [Titulo]
 
-[... continuar para todos os prompts da Fase 1]
+[... continuar para todos os prompts da Fase 1 — cada prompt em seu proprio code block]
 
 ---
 
@@ -386,12 +421,17 @@ FIM DO PROMPT [1.1]
 
 EXEMPLO DE PROMPT BEM FORMATADO:
 
-```
+(No artifact, o titulo fica FORA do code block, e o conteudo copiavel fica DENTRO)
+
 ### Prompt 2.3: API Route + Pagina - Produtos LAB
 
+```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 COPIE DAQUI PARA BAIXO E COLE NO CURSOR (PROMPT COMPLETO)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[MODO CURSOR]
+🟡 MODO CURSOR: Cole no AGENT mode com PLAN ativado (revise antes de executar)
 
 [PRE-REQUISITOS]
 Verificar antes de executar:
@@ -656,7 +696,8 @@ CHECKLIST DE QUALIDADE DE CADA PROMPT:
 
 Antes de gerar cada prompt, verificar:
 
-- [ ] TUDO dentro de uma unica caixa copiavel (linhas inicio/fim)
+- [ ] TUDO dentro de um code block copiavel (triple backticks com botao Copy nativo)
+- [ ] Campo [MODO CURSOR] presente logo antes de [PRE-REQUISITOS] (🔵 AGENT ou 🟡 AGENT com PLAN)
 - [ ] Secao [PRE-REQUISITOS] no inicio com checkboxes de dependencias
 - [ ] Secao [COMANDOS DE INSTALACAO] antes da implementacao
 - [ ] Caminhos de arquivo com @ (@src/app/page.tsx)
