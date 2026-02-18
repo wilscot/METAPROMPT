@@ -8,39 +8,63 @@
 
 3. Cole este prompt completo
 
-4. Claude pergunta: "Quantas fases tem seu projeto na secao 6 do escopo.md?"
+4. Claude analisa o escopo, agrupa features em sub-fases e mostra o plano
 
-5. Voce responde: "X fases" (ex: "4 fases")
+5. Claude gera **1 artifact por fase** (nao tudo junto!)
 
-6. Claude gera **1 artifact por fase** (nao tudo junto!)
+6. **NAO copie tudo de uma vez!**
 
-7. **NAO copie tudo de uma vez!**
+7. Copie **UM prompt por vez** (cada um esta em caixa unica copiavel)
 
-8. Copie **UM prompt por vez** (cada um esta em caixa unica copiavel)
+8. Cole no Cursor Chat
 
-9. Cole no Cursor Chat
+9. Valide cada feature implementada antes de avancar
 
-10. Valide cada feature implementada antes de avancar
+10. Repita ate completar todos os prompts da fase atual
 
-11. Repita ate completar todos os prompts da fase atual
-
-12. Quando terminar uma fase, peca para Claude gerar a proxima fase
+11. Quando terminar uma fase, peca para Claude gerar a proxima fase
 
 ---
 
 ```
 
-**PASSO 1: PERGUNTAR QUANTAS FASES**
+**PASSO 1: ANALISAR FASES AUTOMATICAMENTE**
 
-Antes de gerar qualquer prompt, voce DEVE perguntar ao usuario:
+REGRA DE AUTONOMIA: NAO pergunte ao usuario a menos que exista uma ambiguidade REAL no escopo.md que impeca voce de prosseguir (ex: duas secoes contraditorias, feature mencionada mas sem detalhamento nenhum). Se a informacao esta no escopo, mesmo que resumida, USE-A e tome a decisao voce mesmo. Nunca pergunte por "educacao" ou para "confirmar" algo que ja esta claro.
 
-"Quantas fases tem seu projeto na secao 6 do escopo.md? (ex: 4 fases, 3 fases)"
+Analise o @escopo.md e determine voce mesmo a divisao em fases:
 
-Aguarde a resposta do usuario antes de continuar.
+1. Leia a secao "Funcionalidades" (ou equivalente) do escopo
+2. Identifique TODAS as features listadas
+3. Agrupe-as em sub-fases logicas seguindo esta ordem:
+   - Fase 1: Setup/Infra (banco, auth, config base, libs compartilhadas)
+   - Fase 2: Core/Backend (models, API routes, logica de negocio)
+   - Fase 3: Frontend (paginas, componentes, formularios)
+   - Fase 4: Integracoes/Polish (APIs externas, otimizacoes, ajustes finais)
+4. Se o escopo tiver apenas 1 fase (ex: MVP), DIVIDA as features em sub-fases conforme acima
+5. Se o escopo ja tiver multiplas fases definidas, respeite a divisao do escopo e aplique a sub-divisao dentro de cada fase se necessario
+6. Cada sub-fase deve ter no MAXIMO 4-6 prompts (se tiver mais, quebre em sub-fases menores)
+7. Features do roadmap/futuro que NAO tenham detalhamento completo devem ser IGNORADAS (nao gere prompts para elas)
+
+Apresente o plano de fases ANTES de gerar os prompts:
+
+```
+PLANO DE FASES IDENTIFICADO:
+- Fase 1: [nome] ([N] prompts) - [lista resumida de features]
+- Fase 2: [nome] ([N] prompts) - [lista resumida de features]
+- Fase 3: [nome] ([N] prompts) - [lista resumida de features]
+- ...
+Total: [X] fases, [Y] prompts
+
+[SE houver features ignoradas por falta de detalhamento:]
+IGNORADAS (sem detalhamento suficiente): [lista]
+```
+
+Depois do plano, gere IMEDIATAMENTE o artifact da Fase 1. NAO espere confirmacao.
 
 **PASSO 2: GERAR APENAS UMA FASE POR VEZ**
 
-Apos receber a resposta, gere APENAS os prompts da PRIMEIRA FASE em um artifact.
+Gere APENAS os prompts da PRIMEIRA FASE no artifact.
 
 **NAO gere todas as fases de uma vez!**
 
@@ -56,8 +80,10 @@ ANALISE DE IMPLEMENTACAO:
 
 1. FASES DO PROJETO:
    - Extrair da secao "Funcionalidades" do escopo
+   - Agrupar em sub-fases logicas (setup -> core -> frontend -> integracoes)
    - Identificar dependencias entre features
    - Ordenar logicamente (setup -> core -> advanced -> polish)
+   - Cada sub-fase com no maximo 4-6 prompts
 
 2. GRANULARIDADE:
    - Feature simples (1 componente, logica basica): 1 prompt
