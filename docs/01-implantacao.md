@@ -77,3 +77,15 @@ O `MP05 - Micro-Prompts` foi atualizado para exigir que cada prompt do artifact 
 **Commit de referencia:** `e112232`
 
 **Motivo:** Melhorar a experiencia de uso no Claude Web, aumentar confiabilidade da copia dos micro-prompts e tornar explicito o fluxo de execucao por modo no Cursor.
+
+### 2026-03-01 - MP05 com resiliencia de first-run e validacao de runtime
+
+**Arquivos alterados:**
+- `C:/Users/wfrancischini/Desktop/PROJETOS/__START__/2 - META PROMPT/MP05 - Micro-Prompts.md`
+
+**O que foi feito:**
+Foi fortalecida a orientacao do `MP05 - Micro-Prompts` para reduzir falhas no primeiro ciclo de execucao e aumentar previsibilidade operacional em ambiente local com Docker. Em **REGRAS PARA O CONTEUDO DOS PROMPTS**, foram adicionadas: (1) regra de resiliencia de configuracao no first-run cobrindo `env` ausente, invalida e valida, com fallback em DEV e fail-fast em PROD; e (2) regra anti-friccao para portas Docker locais, evitando assumir porta host livre e orientando variavel de porta host com fallback. Em **INSTRUCOES DE VALIDACAO PARA A IA**, foram adicionadas validacoes de runtime (smoke test de inicializacao real, health/readiness de servicos via Docker Compose e checagem de logs de startup), alem de dois novos itens no checklist automatico: app inicializou sem crash e servicos saudaveis. No **CHECKLIST DE QUALIDADE**, foram incluidos criterios para validar `env` em 3 estados, diferenciar comportamento DEV vs PROD, executar smoke test runtime, validar startup do Docker Compose e evitar crash por placeholders de `.env.example`.
+
+**Dependencias:** N/A
+
+**Motivo:** O primeiro micro-prompt falhou por tratar apenas `env` vazia e nao cobrir `env` invalida; a atualizacao torna a geracao/validacao mais robusta, reduz falhas de runtime no first-run e diminui friccao recorrente com portas locais em uso.

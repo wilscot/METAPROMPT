@@ -219,6 +219,9 @@ Apos implementar, voce DEVE:
    - pnpm run build (ou npm run build)
    - Verificar se arquivos foram criados
    - Verificar erros TypeScript
+   - Executar smoke test de inicializacao real (nao apenas sintaxe/build)
+   - Se houver Docker Compose no projeto: subir stack e verificar health/readiness dos servicos
+   - Verificar logs de inicializacao e apontar erro em linguagem simples, quando houver
    - Listar arquivos criados/modificados
 
 2. REPORTAR RESULTADO neste formato:
@@ -235,6 +238,8 @@ VALIDACOES AUTOMATICAS (executadas pela IA):
 [x] ou [ ] Codigo compilou sem erros (tudo funcionando)
 [x] ou [ ] Arquivos criados corretamente
 [x] ou [ ] Sem erros de codigo
+[x] ou [ ] Aplicacao inicializou sem crash
+[x] ou [ ] Servicos principais ficaram saudaveis (quando houver Docker Compose)
 
 Se alguma falhou, explicar de forma SIMPLES (sem termos tecnicos):
 Exemplo: "Erro ao compilar: faltou instalar componente X. Execute: pnpm dlx shadcn@latest add X"
@@ -343,6 +348,19 @@ REGRAS PARA O CONTEUDO DOS PROMPTS:
      - Modificacoes em arquivos existentes que requerem cuidado
      - Formato: 🟡 MODO CURSOR: Cole no AGENT mode com PLAN ativado (revise antes de executar)
    - Na duvida, use AGENT com PLAN (e mais seguro revisar antes)
+
+8. **Resiliencia de configuracao (first-run) obrigatoria:**
+   - Toda inicializacao que depende de variavel de ambiente DEVE tratar:
+     ausente, presente mas invalida, e valida
+   - Em development: aplicar fallback seguro com warning claro (evitar crash por config invalida isolada)
+   - Em production: fail-fast com mensagem explicita orientando correcao
+   - Assumir que o primeiro `.env` pode vir de copia do `.env.example` com placeholders
+   - Se houver formato estrito (ex: Fernet/JWT), validar formato explicitamente no startup
+
+9. **Portas locais em ambiente Docker (anti-friccao):**
+   - Nao assumir que portas padrao de host estao livres (ex: 5432)
+   - Preferir mapeamento com variavel (ex: `${DB_PORT_HOST:-5432}:5432`) quando aplicavel
+   - Sempre orientar fallback simples se houver conflito de porta local
 
 ---
 
@@ -713,6 +731,11 @@ Antes de gerar cada prompt, verificar:
 - [ ] Secao [INSTRUCOES DE VALIDACAO PARA A IA] com formato padronizado
 - [ ] Secao "O QUE FOI FEITO" com resumo simples e nao-tecnico
 - [ ] Validacoes automaticas com linguagem simples ("Codigo compilou" ao inves de "Build passou")
+- [ ] Prompt trata env em 3 estados: ausente, invalida e valida
+- [ ] Prompt diferencia comportamento de config sensivel em DEV vs PROD
+- [ ] Prompt inclui smoke test de runtime (nao apenas build/typecheck)
+- [ ] Prompt valida startup de servicos quando houver Docker Compose
+- [ ] `.env.example` nao induz crash de first-run por placeholder invalido
 - [ ] Testes manuais com URLs completas (http://localhost:3000/rota)
 - [ ] Testes manuais com acoes visuais claras (clique, preencha, etc)
 - [ ] Testes manuais com ESPERADO descrito visualmente
