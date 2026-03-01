@@ -36,6 +36,21 @@ IMPORTANTE:
 
 ---
 
+## [MODO CURSOR] - JULGAMENTO OBRIGATÓRIO
+
+Antes de gerar o artifact, conte quantos arquivos serão criados e inclua no INÍCIO do prompt gerado:
+
+**🔵 AGENT (execução direta)** — usar quando:
+- Artifact cria até 15 arquivos
+- Projeto pequeno/médio (MVP, poc)
+
+**🟡 AGENT com PLAN** — usar quando:
+- Artifact cria 16+ arquivos
+- Projeto grande (muitas features, rotas, componentes)
+- Na dúvida, use AGENT com PLAN (mais seguro revisar antes)
+
+---
+
 GERE O ARTIFACT:
 
 Título: "Prompt para Cursor: Criar Estrutura de Código (arquivos vazios)"
@@ -43,6 +58,13 @@ Título: "Prompt para Cursor: Criar Estrutura de Código (arquivos vazios)"
 ESTRUTURA DO PROMPT:
 
 ```
+[MODO CURSOR]
+🔵 MODO CURSOR: Cole no AGENT mode (execução direta)
+OU
+🟡 MODO CURSOR: Cole no AGENT mode com PLAN ativado (revise antes de executar)
+
+(Inclua no artifact APENAS a linha escolhida — não inclua "OU" nem esta instrução)
+
 Crie os seguintes arquivos com comentários TODO (SEM implementação):
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

@@ -219,6 +219,23 @@ Alternativas JS:
 
 ---
 
+## [MODO CURSOR] - JULGAMENTO OBRIGATÓRIO
+
+Antes de gerar o artifact, avalie a complexidade e inclua no INÍCIO do prompt gerado:
+
+**🔵 AGENT (execução direta)** — usar quando:
+- Artifact tem até 8 arquivos de configuração
+- Sem dependências nativas (better-sqlite3, bcrypt, sharp, etc.)
+- Configs padrão (Next.js/Vite básico, Tailwind, ESLint)
+
+**🟡 AGENT com PLAN** — usar quando:
+- Artifact tem 9+ arquivos de configuração
+- Há dependências nativas (incluir aviso no artifact)
+- Configs condicionais complexas (múltiplos frameworks, setups custom)
+- Na dúvida, use AGENT com PLAN (mais seguro revisar antes)
+
+---
+
 GERE O ARTIFACT:
 
 Título: "Prompt para Cursor: Criar Arquivos de Configuração"
@@ -231,6 +248,13 @@ Título: "Prompt para Cursor: Criar Arquivos de Configuração"
 ESTRUTURA DO PROMPT:
 
 ```
+[MODO CURSOR]
+🔵 MODO CURSOR: Cole no AGENT mode (execução direta)
+OU
+🟡 MODO CURSOR: Cole no AGENT mode com PLAN ativado (revise antes de executar)
+
+(Inclua no artifact APENAS a linha escolhida — não inclua "OU" nem esta instrução)
+
 Crie os seguintes arquivos de configuração com conteúdo COMPLETO:
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

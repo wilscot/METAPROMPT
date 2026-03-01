@@ -116,6 +116,9 @@ project-root/
 
 FORMATO DO PROMPT:
 ```
+[MODO CURSOR]
+🔵 MODO CURSOR: Cole no AGENT mode (execução direta)
+
 Crie a seguinte estrutura de pastas vazias:
 
 mkdir -p src/app src/components src/lib

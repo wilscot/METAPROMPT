@@ -78,6 +78,9 @@ POST /endpoint
 ESTRUTURA DO PROMPT:
 
 ```
+[MODO CURSOR]
+🔵 MODO CURSOR: Cole no AGENT mode (execução direta)
+
 Crie arquivos de documentação técnica:
 
 [SE DATABASE:]
