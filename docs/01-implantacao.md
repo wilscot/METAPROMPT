@@ -89,3 +89,22 @@ Foi fortalecida a orientacao do `MP05 - Micro-Prompts` para reduzir falhas no pr
 **Dependencias:** N/A
 
 **Motivo:** O primeiro micro-prompt falhou por tratar apenas `env` vazia e nao cobrir `env` invalida; a atualizacao torna a geracao/validacao mais robusta, reduz falhas de runtime no first-run e diminui friccao recorrente com portas locais em uso.
+
+### 2026-03-03 - MP05 v2 para Claude Code e criterio de escolha no readme
+
+**Arquivos alterados:**
+- `C:/Users/wfrancischini/Desktop/PROJETOS/__START__/2 - META PROMPT/MP05 - Micro-Prompts-ClaudeCode.md`
+- `C:/Users/wfrancischini/Desktop/PROJETOS/__START__/2 - META PROMPT/readme.md`
+
+**O que foi feito:**
+Foi criada uma segunda versao da MP05 orientada ao fluxo do Claude Code, com saida estruturada por fases em arquivos `fase_X.md` para permitir execucao autonoma e incremental sem quebrar o fluxo existente. Em paralelo, o `readme` da pasta de Meta Prompts foi atualizado para explicitar os dois sabores de MP05 (Cursor Agent e ClaudeCode) e o criterio pratico de escolha entre eles.
+
+**Motivo:**
+Permitir uso consistente do framework com Claude Code dentro do Cursor, preservando compatibilidade com o fluxo atual de Cursor Agent e reduzindo ambiguidade na selecao do prompt correto para cada contexto de execucao.
+
+**Impacto operacional:**
+- Define um caminho oficial para uso da MP05 com Claude Code, sem substituir o fluxo atual.
+- Reduz retrabalho na execucao de fases ao padronizar artifacts em `fase_X.md`.
+- Melhora onboarding e tomada de decisao ao documentar claramente quando usar cada variante da MP05.
+
+**Dependencias:** N/A

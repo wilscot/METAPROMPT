@@ -141,37 +141,43 @@ Antes de usar estes Meta-Prompts, você DEVE ter:
 
 ### MP-05: Micro-Prompts 🎯
 
-**Arquivo:** `MP-05-Micro-Prompts.md`
+Agora existem **dois sabores oficiais** da MP-05.
 
-**O que faz:**
-- Gera prompts de implementação detalhados
-- Divide em fases (evita artifacts gigantes que são cortados)
+#### Opção A - Cursor Agent (copy/paste por prompt)
 
-**Como funciona:**
-1. MP-05 pergunta: "Quantas fases tem seu projeto na seção 6 do escopo.md?"
-2. Você responde: "X fases" (ex: "4 fases")
-3. MP-05 gera **1 artifact por fase** (não tudo junto!)
-4. Após completar Fase 1 no Cursor, volte ao Claude Web e peça para gerar Fase 2
+**Arquivo:** `MP05 - Micro-Prompts.md`
 
-**Quantidade de prompts:**
-- Varia por projeto (típico: 9 a 28+ prompts)
-- MP-05 agrupa tarefas relacionadas quando possível
+**Quando usar:**
+- Fluxo tradicional com Cursor Agent
+- Execução de 1 prompt por vez no chat do Cursor
 
-**Como usar:**
-1. No mesmo chat OU novo chat (com escopo.md anexado)
-2. Cole o prompt completo de `MP-05-Micro-Prompts.md`
-3. Responda quantas fases tem o projeto
-4. Claude gera artifact da **Fase 1** apenas
-5. Copie para Cursor
-6. Execute prompts sequencialmente (1 por vez)
-7. Quando terminar Fase 1, volte ao Claude Web e peça: "Gere os prompts da Fase 2"
+**Saída esperada:**
+- Artifact com micro-prompts numerados por fase
+- Estrutura otimizada para copiar e colar no Cursor Chat
 
-**Checkpoint (por fase):**
+#### Opção B - Claude Code (execução autônoma por fase)
+
+**Arquivo:** `MP05 - Micro-Prompts-ClaudeCode.md`
+
+**Quando usar:**
+- Claude Code via extensão ou terminal dentro do Cursor
+- Execução por arquivo `fase_X.md` com subtarefas sequenciais
+
+**Saída esperada:**
+- `fase_01.md`, `fase_02.md`, ...
+- Cada fase inclui bloco de controle, critérios de conclusão e handoff
+
+#### Regra de escolha rápida
+
+- Quer fluxo interativo de copy/paste: use `MP05 - Micro-Prompts.md`
+- Quer fluxo autônomo orientado a fases: use `MP05 - Micro-Prompts-ClaudeCode.md`
+
+#### Checkpoint (por fase)
 ```
-✅ Artifact da Fase X gerado
-✅ Prompts numerados e organizados
-✅ Cada prompt tem [PRE-REQUISITOS] e [COMANDOS DE INSTALACAO]
-→ Avance para desenvolvimento no Cursor
+✅ Artifact da Fase X gerado no formato correto (micro-prompts OU fase_X.md)
+✅ Dependências e validações descritas
+✅ Critério de conclusão presente
+→ Avance para desenvolvimento
 ```
 
 ---
@@ -236,7 +242,8 @@ seu-projeto/
 - [ ] MP-05: Micro-prompts Fase 1 gerados
 
 ### Fase 3: Desenvolvimento:
-- [ ] Prompts executados sequencialmente (1 por vez)
+- [ ] MP05 escolhido corretamente (Cursor Agent ou ClaudeCode)
+- [ ] Prompts/subtarefas executados sequencialmente
 - [ ] Cada prompt validado antes de avançar
 - [ ] MVP completo e funcionando
 
@@ -245,11 +252,12 @@ seu-projeto/
 ## 🎯 DICAS IMPORTANTES
 
 1. **SEMPRE anexe escopo.md** em todos os chats da Fase 2
-2. **Um prompt por vez** no Cursor (não copie tudo de uma vez)
-3. **Valide antes de avançar** (build, testes, sem erros)
-4. **Cursor Rules** são gerenciadas em repositório separado
-5. **MP-05 gera em fases** (evita artifacts gigantes cortados)
-6. **Mesmo chat OK** para MP-01 a MP-05 (desde que escopo.md esteja anexado)
+2. **Escolha o sabor correto da MP05** antes de iniciar (Cursor Agent vs ClaudeCode)
+3. **Execução sequencial**: prompt por prompt (Cursor Agent) ou subtarefa por subtarefa (ClaudeCode)
+4. **Valide antes de avançar** (build, testes, sem erros)
+5. **Cursor Rules** são gerenciadas em repositório separado
+6. **MP-05 gera em fases** (evita artifacts gigantes cortados)
+7. **Mesmo chat OK** para MP-01 a MP-05 (desde que escopo.md esteja anexado)
 
 ---
 
