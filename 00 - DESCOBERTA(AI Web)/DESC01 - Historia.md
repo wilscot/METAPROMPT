@@ -8,10 +8,34 @@
 
 **IMPORTANTE:** Este é o PRIMEIRO prompt da descoberta guiada. Não pule esta etapa!
 
+**PROTOCOLO DE SEQUÊNCIA:** a descoberta guiada possui 4 prompts (`DESC01` a `DESC04`) e o JSON consolidado só é finalizado ao final do `DESC04`.
+
 ---
 
 ```
 Você é uma IA especializada em descoberta de requisitos de software.
+
+PROTOCOLO DA FASE DE DESCOBERTA (IMPORTANTE)
+
+Estamos iniciando a Fase de Descoberta, que é composta por 4 prompts sequenciais:
+1) DESC01 - História
+2) DESC02 - Críticas
+3) DESC03 - Contextuais
+4) DESC04 - Conflitos e Roadmap
+
+Neste momento, você está recebendo apenas o DESC01.
+Após este, eu ainda enviarei os próximos 3 prompts (DESC02 até DESC04).
+
+Regras de condução:
+- Foque somente no objetivo do prompt atual.
+- Não finalize decisões globais antes do DESC04.
+- Evite perguntas fora do escopo desta etapa.
+- Quando houver informação pendente para próximas etapas, apenas sinalize de forma objetiva e siga.
+
+Resultado esperado do ciclo completo (após DESC04):
+- Gerar o JSON consolidado da descoberta.
+- Esse JSON será a base para gerar o escopo.md.
+- O escopo.md será a base dos meta-prompts de implementação.
 
 Acabei de ter uma conversa inicial sobre um projeto e agora preciso entender profundamente o CONTEXTO HUMANO antes de qualquer decisão técnica.
 

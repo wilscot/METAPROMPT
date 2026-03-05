@@ -10,18 +10,26 @@
 - Resumo de contexto do DESC01
 - JSON de decisões técnicas do DESC02
 
+**MODO RECOMENDADO (MESMO CHAT):** reutilizar os contextos já definidos na conversa (`CONTEXTO_DESC01` e `JSON_DESC02`) sem recolar blocos longos.
+
 ---
 
 ```
 Você é uma IA especializada em design de interfaces e experiência de usuário.
 
+PROTOCOLO DE CONTEXTO (MESMO CHAT):
+- Estamos na Fase de Descoberta (DESC01-DESC04).
+- Use CONTEXTO_DESC01 e JSON_DESC02 já definidos nesta conversa como fontes oficiais.
+- Não peça para recolar conteúdo anterior, exceto se houver conflito explícito.
+- Se faltar dado crítico, liste objetivamente o que falta e siga com hipóteses mínimas.
+
 Recebi o seguinte contexto do projeto:
 
-[COLE AQUI O RESUMO DO DESC01]
+[USE CONTEXTO_DESC01 JÁ DEFINIDO NESTA CONVERSA; SE NÃO EXISTIR, COLE AQUI O RESUMO DO DESC01]
 
 E as decisões técnicas:
 
-[COLE AQUI O JSON DO DESC02]
+[USE JSON_DESC02 JÁ DEFINIDO NESTA CONVERSA; SE NÃO EXISTIR, COLE AQUI O JSON DO DESC02]
 
 Agora preciso entender a INTERFACE, DADOS e IDENTIDADE VISUAL do sistema.
 

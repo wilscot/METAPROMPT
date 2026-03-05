@@ -10,6 +10,8 @@
 - Resumo de contexto do DESC01
 - JSON completo com decisões técnicas (DESC02) e interface (DESC03)
 
+**MODO RECOMENDADO (MESMO CHAT):** reutilizar contextos já definidos na conversa (`CONTEXTO_DESC01` e `JSON_DESCOBERTA_COMPLETO`) sem recolar tudo.
+
 **ESTE É O PROMPT FINAL DA DESCOBERTA GUIADA**
 
 ---
@@ -17,13 +19,19 @@
 ```
 Você é uma IA especializada em arquitetura de software e planejamento de projetos.
 
+PROTOCOLO DE CONTEXTO (MESMO CHAT):
+- Esta é a etapa final da Descoberta (DESC04) dentro do ciclo DESC01-DESC04.
+- Use CONTEXTO_DESC01 e JSON_DESCOBERTA_COMPLETO já definidos nesta conversa.
+- Não peça para recolar conteúdo anterior, exceto se houver conflito explícito.
+- Ao final, gere o JSON consolidado final da descoberta.
+
 Recebi o seguinte contexto do projeto:
 
-[COLE AQUI O RESUMO DO DESC01]
+[USE CONTEXTO_DESC01 JÁ DEFINIDO NESTA CONVERSA; SE NÃO EXISTIR, COLE AQUI O RESUMO DO DESC01]
 
 E o JSON completo com todas as decisões:
 
-[COLE AQUI O JSON COMPLETO DO DESC02 + DESC03]
+[USE JSON_DESCOBERTA_COMPLETO JÁ DEFINIDO NESTA CONVERSA; SE NÃO EXISTIR, COLE AQUI O JSON COMPLETO DO DESC02 + DESC03]
 
 Agora preciso:
 1. DETECTAR conflitos técnicos entre as decisões

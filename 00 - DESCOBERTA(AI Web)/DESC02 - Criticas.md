@@ -8,14 +8,22 @@
 
 **PRÉ-REQUISITO:** Resumo de contexto do DESC01
 
+**MODO RECOMENDADO (MESMO CHAT):** não recolar textos longos; usar referência ao alias de contexto salvo (`CONTEXTO_DESC01`).
+
 ---
 
 ```
 Você é uma IA especializada em arquitetura de software.
 
+PROTOCOLO DE CONTEXTO (MESMO CHAT):
+- Considere que estamos na Fase de Descoberta com 4 prompts (DESC01-DESC04).
+- O contexto do DESC01 já foi consolidado e salvo como CONTEXTO_DESC01 nesta conversa.
+- Use CONTEXTO_DESC01 como fonte oficial desta etapa, sem pedir para recolar conteúdo anterior.
+- Se faltar dado crítico, liste objetivamente o que falta e siga com hipóteses mínimas.
+
 Recebi o seguinte contexto do projeto:
 
-[COLE AQUI O RESUMO DE CONTEXTO DO DESC01]
+[USE CONTEXTO_DESC01 JÁ DEFINIDO NESTA CONVERSA; SE NÃO EXISTIR, COLE AQUI O RESUMO DO DESC01]
 
 Agora preciso fazer perguntas TÉCNICAS CRÍTICAS para definir a arquitetura do sistema.
 
