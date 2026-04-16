@@ -1,0 +1,10 @@
+{
+  "only": [
+    "gitignore"
+  ],
+  "budgets": {},
+  "routing": {
+    "retrieval": {}
+  },
+  "drift": {}
+}
